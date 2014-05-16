@@ -76,7 +76,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     NSData *data = [NSData dataWithContentsOfURL:url];
     
     self.kml        = [KMLParser parseKMLWithData:data];
-    self.geometries = self.kml.geometries;
     
     [self reloadMapView];
 }
@@ -259,21 +258,21 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 #pragma mark UI Callbacks
 - (IBAction)mapViewTapped:(UITapGestureRecognizer *)sender
 {
-  //    if (self.mapView.frame.size.height > 235) {
-  //        [self.view showKiezDetailsAnimated:YES];
-  //    } else {
-  //        [self.view showOverviewAnimated:YES];
-  //    }
   
-  if (sender.state != UIGestureRecognizerStateEnded)
-  {
-    return;
-  }
+    if (sender.state != UIGestureRecognizerStateEnded)
+    {
+        return;
+    }
   
-  CGPoint point = [sender locationInView:sender.view];
-  CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    if (self.state == K2GKiezDetailViewControllerStateOverview) {
+    
+        CGPoint point = [sender locationInView:sender.view];
+        CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
   
-  [self zoomToKiezFromCoordinate:coordinate];
+        [self zoomToKiezFromCoordinate:coordinate];
+    } else {
+        self.state = K2GKiezDetailViewControllerStateOverview;
+    }
 }
 
 - (void)focusOnCurrentLocation:(id)sender
