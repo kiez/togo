@@ -36,12 +36,11 @@ static const CLLocationAccuracy kDesiredLocationAccuracy = 100; // meters
 
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
-@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITableViewDelegate>
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) KMLRoot *kml;
 @property (nonatomic) K2GKiezDetailView *view;
-@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (nonatomic, strong) NSMutableDictionary *mapFromOverlayIndexToKiez;
@@ -50,6 +49,9 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 @property (nonatomic, strong) NSArray *venues;
 
 @property (nonatomic) K2GKiezDetailViewControllerState state;
+
+@property (nonatomic, strong) K2GKiez *activeKiez;
+@property (nonatomic, strong) MKPolygon *activePolygon;
 
 @end
 
@@ -84,12 +86,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
   [super viewDidAppear:animated];
   
-  [self.locationManager startUpdatingLocation];
-  [self.spinner startAnimating];
-  
   [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
-  
-    [self loadVenuesAtLocation:CLLocationCoordinate2DMake(52.546430, 13.361980)];
 }
 
 - (void)reloadMapView
@@ -144,19 +141,14 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   self.overlays = overlays;
 }
 
-- (void)stopLocationUpdates
-{
-  [self.locationManager stopUpdatingLocation];
-  [self.spinner stopAnimating];
-}
-
 - (void)zoomToKiezFromCoordinate:(CLLocationCoordinate2D)coordinate
 {
   K2GKiez *kiez = nil;
+  MKPolygon *polygonOverlay = nil;
   for (NSUInteger i = 0; i < [self.overlays count]; ++i)
   {
-    MKPolygon *polygon = self.overlays[i];
-    if ([self polygon:polygon contains:coordinate])
+    polygonOverlay = self.overlays[i];
+    if ([self polygon:polygonOverlay contains:coordinate])
     {
       NSNumber *index = @(i);
       kiez = self.mapFromOverlayIndexToKiez[index];
@@ -169,7 +161,15 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     DLog(@"coordinate not in any kiez");
     return;
   }
+    
+//    [self zoomToKiez:kiez];
+//}
+//
+//- (void)zoomToKiez:(K2GKiez*)kiez
+//{
 
+  [self setActiveKiez:kiez withPolygon:polygonOverlay];
+  
   KMLPolygon *polygon = (KMLPolygon *) kiez.geometry;
   
   CLLocationCoordinate2D kiezCenterCoordinate = [polygon centerCoordinate];
@@ -180,6 +180,40 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     self.title = kiez.name;
     
     [self loadVenuesAtLocation:kiezCenterCoordinate];
+}
+
+- (void)setActiveKiez:(K2GKiez *)kiez withPolygon:(MKPolygon *)polygonOverlay
+{
+  // deselect the old polygon
+  if (self.activePolygon)
+  {
+    MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:self.activePolygon];
+    
+    CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
+    CGFloat saturation = 0.7;
+    CGFloat brightness = 0.8;
+    CGFloat alpha = 0.5;
+    
+    renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+    renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+    renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+  }
+  
+  self.activeKiez    = kiez;
+  self.activePolygon = polygonOverlay;
+  
+  // select the new polygon
+  
+  MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:polygonOverlay];
+  
+  CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
+  CGFloat saturation = 0.7;
+  CGFloat brightness = 0.8;
+  CGFloat alpha = 1.0;
+  
+  renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+  renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+  renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
 }
 
 - (KMLPlacemark *)placemarkForName:(NSString *)name
@@ -214,12 +248,13 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
 //  http://stackoverflow.com/questions/19014926/detecting-a-point-in-a-mkpolygon-broke-with-ios7-cgpathcontainspoint
   
-  MKPolygonView *polygonView = (MKPolygonView *)[self.mapView viewForOverlay:polygon];
   MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
-  CGPoint polygonViewPoint = [polygonView pointForMapPoint:mapPoint];
+  
+  MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:polygon];
+  CGPoint polygonViewPoint = [renderer pointForMapPoint:mapPoint];
 
   BOOL result = NO;
-  if (CGPathContainsPoint(polygonView.path, NULL, polygonViewPoint, FALSE)) {
+  if (CGPathContainsPoint(renderer.path, NULL, polygonViewPoint, FALSE)) {
     result = YES;
   }
   
@@ -299,17 +334,49 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     return nil;
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
 {
-    if ([overlay isKindOfClass:[MKPolyline class]]) {
-        return [(MKPolyline *)overlay overlayViewForMapView:mapView];
-    }
-    else if ([overlay isKindOfClass:[MKPolygon class]]) {
-        return [(MKPolygon *)overlay overlayViewForMapView:mapView];
-    }
+  if ([overlay isKindOfClass:[MKPolygon class]])
+  {
+    MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:overlay];
     
-    return nil;
+    // TODO Stan random light color for each shape
+    CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
+    CGFloat saturation = 0.7;
+    CGFloat brightness = 0.8;
+    CGFloat alpha = 0.5;
+    
+    renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+    
+    renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+    renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+    
+    return  renderer;
+  }
+  
+  return nil;
 }
+
+- (void)mapViewWillStartLocatingUser:(MKMapView *)mapView NS_AVAILABLE(10_9, 4_0);
+{
+    [self.spinner startAnimating];
+}
+
+- (void)mapViewDidStopLocatingUser:(MKMapView *)mapView NS_AVAILABLE(10_9, 4_0);
+{
+    [self.spinner stopAnimating];
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    CLLocation *location = [userLocation location];
+    
+    if (location.horizontalAccuracy < kDesiredLocationAccuracy)
+    {
+        [self zoomToKiezFromCoordinate:location.coordinate];
+    }
+}
+
 
 #pragma mark - UITableViewDataSource implementation
 
@@ -363,58 +430,33 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     }
 }
 
-#pragma mark Location & CLLocationManagerDelegate
-
-- (CLLocationManager *)locationManager
-{
-  if (!_locationManager)
-  {
-    if (
-        [CLLocationManager locationServicesEnabled] &&
-        (
-         [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined ||
-         [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-         )
-        )
-    {
-      _locationManager = [CLLocationManager new];
-      _locationManager.delegate = self;
-    }
-  }
-  
-  return _locationManager;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-  CLLocation *location = [locations lastObject];
-
-  if (location.horizontalAccuracy < kDesiredLocationAccuracy)
-  {
-    [self stopLocationUpdates];
-    [self zoomToKiezFromCoordinate:location.coordinate];
-  }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-  // [self stopLocationUpdates];
-  
-  DLog(@"Could not update user location");
-}
 
 #pragma mark - Venue Loadng
 
 - (void) loadVenuesAtLocation:(CLLocationCoordinate2D)location
 {
-    _venues = @[];
-    [self.view.tableView reloadData];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.view.tableView.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         _venues = @[];
+                         [self.view.tableView reloadData];
+                         
+                         [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
+                                                                            handler:^(NSArray *venues, NSError *error) {
+                                                                                _venues = venues;
+                                                                                [self.view.tableView reloadData];
+                                                                                
+                                                                                [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn
+                                                                                                 animations:^{
+                                                                                                     self.view.tableView.alpha = 1.0;
+                                                                                                 }
+                                                                                                 completion:NULL];
+
+                                                                            }];
+                     }];
     
-    [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
-                                                       handler:^(NSArray *venues, NSError *error) {
-                                                           _venues = venues;
-                                                           [self.view.tableView reloadData];
-                                                       }];
 }
 
 @end
