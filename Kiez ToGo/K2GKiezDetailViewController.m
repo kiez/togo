@@ -207,12 +207,13 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
 //  http://stackoverflow.com/questions/19014926/detecting-a-point-in-a-mkpolygon-broke-with-ios7-cgpathcontainspoint
   
-  MKPolygonView *polygonView = (MKPolygonView *)[self.mapView viewForOverlay:polygon];
   MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
-  CGPoint polygonViewPoint = [polygonView pointForMapPoint:mapPoint];
+  
+  MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:polygon];
+  CGPoint polygonViewPoint = [renderer pointForMapPoint:mapPoint];
 
   BOOL result = NO;
-  if (CGPathContainsPoint(polygonView.path, NULL, polygonViewPoint, FALSE)) {
+  if (CGPathContainsPoint(renderer.path, NULL, polygonViewPoint, FALSE)) {
     result = YES;
   }
   
@@ -223,12 +224,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 #pragma mark UI Callbacks
 - (IBAction)mapViewTapped:(UITapGestureRecognizer *)sender
 {
-  //    if (self.mapView.frame.size.height > 235) {
-  //        [self.view showKiezDetailsAnimated:YES];
-  //    } else {
-  //        [self.view showOverviewAnimated:YES];
-  //    }
-  
   if (sender.state != UIGestureRecognizerStateEnded)
   {
     return;
@@ -255,16 +250,27 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     return nil;
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
 {
-    if ([overlay isKindOfClass:[MKPolyline class]]) {
-        return [(MKPolyline *)overlay overlayViewForMapView:mapView];
-    }
-    else if ([overlay isKindOfClass:[MKPolygon class]]) {
-        return [(MKPolygon *)overlay overlayViewForMapView:mapView];
-    }
+  if ([overlay isKindOfClass:[MKPolygon class]])
+  {
+    MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:overlay];
     
-    return nil;
+    // TODO Stan random light color for each shape
+    CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
+    CGFloat saturation = 0.7;
+    CGFloat brightness = 0.8;
+    CGFloat alpha = 0.5;
+    
+    renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+    
+    renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+    renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+    
+    return  renderer;
+  }
+  
+  return nil;
 }
 
 #pragma mark - UITableViewDataSource implementation
