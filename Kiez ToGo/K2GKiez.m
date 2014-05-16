@@ -17,6 +17,9 @@
 @property (readwrite) NSString *district; //i.e. Neukölln
 @property (readwrite) NSString *area; //i.e. Britz
 @property (readwrite) float sizeInHa;
+
+@property (readwrite) KMLAbstractGeometry *geometry;
+
 @end
 
 @implementation K2GKiez
@@ -42,6 +45,8 @@
     kiez.district = [self getValueForKey:@"BEZNAME" fromHTML:doc];
     kiez.area = [self getValueForKey:@"BZRNAME" fromHTML:doc];
     kiez.sizeInHa = [[[self getValueForKey:@"FLAECHE_HA" fromHTML:doc] stringByReplacingOccurrencesOfString:@"," withString:@"."] floatValue];
+    
+    kiez.geometry = placemark.geometry;
     
     return kiez;
 }

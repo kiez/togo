@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class KMLPlacemark;
+@class KMLAbstractGeometry;
 
 @interface K2GKiez : NSObject
 
@@ -20,5 +21,6 @@
 @property (readonly) NSString *area; //i.e. Britz
 @property (readonly) float sizeInHa;
 
+@property (readonly) KMLAbstractGeometry *geometry;
 
 @end
