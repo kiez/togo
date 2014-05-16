@@ -167,8 +167,20 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    K2GFoursquareVenueViewController *venueDetailVC = [K2GFoursquareVenueViewController new];
-    [self.navigationController pushViewController:venueDetailVC animated:YES];
+    [self openDetailsOfVenueWithIdentifier:@"4ade123bf964a520d87221e3"];
+}
+
+- (void) openDetailsOfVenueWithIdentifier: (NSString *) venueIdentifier
+{
+    NSURL *nativeAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", venueIdentifier]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:nativeAppURL]) {
+        [[UIApplication sharedApplication] openURL: nativeAppURL];
+        [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
+    } else {
+        K2GFoursquareVenueViewController *venueDetailVC = [[K2GFoursquareVenueViewController alloc] initWithVenueIdentifier:venueIdentifier];
+        [self.navigationController pushViewController:venueDetailVC animated:YES];
+    }
 }
 
 @end
