@@ -13,11 +13,9 @@
 
 - (void)awakeFromNib
 {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.gradeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
-    
     [self.gradeLabel layoutIfNeeded];
     
-    self.gradeLabel.layer.cornerRadius = 17;
+    self.gradeLabel.layer.cornerRadius = 20;
     self.gradeLabel.backgroundColor = [self tintColor];
     self.gradeLabel.textColor = [UIColor whiteColor];
 }
