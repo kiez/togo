@@ -25,6 +25,7 @@ PODS:
     - ErrorKit/Core
   - ErrorKit/UIKit (0.1.1):
     - ErrorKit/Core
+  - pop (1.0.4)
   - ReactiveCocoa (2.3):
     - ReactiveCocoa/UI
   - ReactiveCocoa/Core (2.3):
@@ -32,6 +33,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.3)
   - ReactiveCocoa/UI (2.3):
     - ReactiveCocoa/Core
+  - Tweaks (1.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2.4)
@@ -39,11 +41,15 @@ DEPENDENCIES:
   - ErrorKit/CoreData
   - ErrorKit/HTTP
   - ErrorKit/UIKit
+  - pop
   - ReactiveCocoa (~> 2.3)
+  - Tweaks
 
 SPEC CHECKSUMS:
   AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
   ErrorKit: 02dcbcaea24ab4b04b0a0922dd5241dfeff24605
+  pop: 63a4f5e8942077fed2efe195036ecc572c71c48c
   ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
+  Tweaks: 9337b5c9466d828bd6d69af3ccc124097472efad
 
 COCOAPODS: 0.32.1

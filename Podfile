@@ -9,3 +9,6 @@ pod 'ErrorKit/Core'
 pod 'ErrorKit/UIKit'
 pod 'ErrorKit/CoreData'
 pod 'ErrorKit/HTTP'
+
+pod 'Tweaks'
+pod 'pop'
