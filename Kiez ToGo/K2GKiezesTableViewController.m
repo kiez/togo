@@ -17,41 +17,64 @@ static NSString * const kKiezCellReuseIdentifier = @"KiezCell";
 
 @interface K2GKiezesTableViewController ()
 
+@property (nonatomic, copy) NSArray *sortedDistricts;
+@property (nonatomic, copy) NSDictionary *sortedKiezesByDistrict;
+
 @end
 
 @implementation K2GKiezesTableViewController
 
 - (void)viewDidLoad
 {
+  self.title = @"Berlin Kiezes";
+  
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"K2GKiezTableViewCell" bundle:nil]
          forCellReuseIdentifier:kKiezCellReuseIdentifier];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super viewWillAppear:animated];
+  
+  NSArray *sortedDistricts = [[K2GKiezManager defaultManager].districts sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES] ]];
+  
+  self.sortedDistricts = sortedDistricts;
+  
+  NSMutableDictionary *sortedKiezesByDistrict = [NSMutableDictionary new];
+  
+  for (NSUInteger i = 0; i < [sortedDistricts count]; ++i)
+  {
+    NSString *district = sortedDistricts[i];
+    
+    NSArray *kiezes = [[K2GKiezManager defaultManager] kiezesByDistricts][district];
+    NSArray *sortedKiezes = [kiezes sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ]];
+    sortedKiezesByDistrict[district] = sortedKiezes;
+  }
+  
+  self.sortedKiezesByDistrict = sortedKiezesByDistrict;
+  
+  [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [K2GKiezManager defaultManager].districts.count;
+    return [self.sortedDistricts count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSString *district = [K2GKiezManager defaultManager].districts[section];
-    NSArray *kiezes = [[K2GKiezManager defaultManager] kiezesByDistricts][district];
-    return kiezes.count;
+    NSString *district = self.sortedDistricts[section];
+    NSArray *kiezes = self.sortedKiezesByDistrict[district];
+    return [kiezes count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *district = [K2GKiezManager defaultManager].districts[section];
+    NSString *district = self.sortedDistricts[section];
     return district;
 }
 
@@ -59,8 +82,8 @@ static NSString * const kKiezCellReuseIdentifier = @"KiezCell";
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kKiezCellReuseIdentifier forIndexPath:indexPath];
     
-    NSString *district = [K2GKiezManager defaultManager].districts[indexPath.section];
-    NSArray *kiezes = [[K2GKiezManager defaultManager] kiezesByDistricts][district];
+    NSString *district = self.sortedDistricts[indexPath.section];
+  NSArray *kiezes = self.sortedKiezesByDistrict[district];
     K2GKiez *kiez = kiezes[indexPath.row];
     cell.textLabel.text = kiez.name;
     
@@ -71,8 +94,8 @@ static NSString * const kKiezCellReuseIdentifier = @"KiezCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *district = [K2GKiezManager defaultManager].districts[indexPath.section];
-    NSArray *kiezes = [[K2GKiezManager defaultManager] kiezesByDistricts][district];
+    NSString *district = self.sortedDistricts[indexPath.section];
+    NSArray *kiezes = self.sortedKiezesByDistrict[district];
     K2GKiez *kiez = kiezes[indexPath.row];
     
     [self.delegate kiezesController:self didSelectKiez:kiez];    

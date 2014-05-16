@@ -42,6 +42,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 @interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (nonatomic, weak) IBOutlet UIView *emptyView;
 @property (nonatomic, strong) KMLRoot *kml;
 @property (nonatomic) K2GKiezDetailView *view;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
@@ -450,7 +451,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
                      completion:^(BOOL finished) {
                          _venues = @[];
                          [self.view.tableView reloadData];
-                         
+                         [self.emptyView removeFromSuperview];
+                       
                          [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
                                                                             handler:^(NSArray *venues, NSError *error) {
                                                                                 _venues = venues;
