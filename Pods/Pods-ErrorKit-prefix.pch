@@ -1,9 +1,0 @@
-#ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#endif
-
-#import "Pods-environment.h"
-#define ERROR_KIT_CORE 1
-#define ERROR_KIT_CORE_DATA 1
-#define ERROR_KIT_HTTP 1
-#define ERROR_KIT_UI_KIT 1

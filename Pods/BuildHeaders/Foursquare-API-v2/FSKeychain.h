@@ -1,1 +1,0 @@
-../../Foursquare-API-v2/Foursquare2/FSKeychain.h
