@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="K2GKiezDetailViewController">
             <connections>
+                <outlet property="emptyView" destination="Uqa-cl-HmZ" id="Obe-M4-xFw"/>
                 <outlet property="mapView" destination="pwf-bY-2Pm" id="SMr-qE-Tqf"/>
                 <outlet property="spinner" destination="5MY-gw-bNZ" id="6Jt-d8-Nfb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -37,14 +38,37 @@
                     <rect key="frame" x="150" y="165" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
+                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Uqa-cl-HmZ" userLabel="empty View">
+                    <rect key="frame" x="0.0" y="292" width="320" height="376"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a kiez to load popular places" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="xLx-Kx-Etl">
+                            <rect key="frame" x="20" y="20" width="280" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="xLx-Kx-Etl" firstAttribute="leading" secondItem="Uqa-cl-HmZ" secondAttribute="leading" constant="20" id="9AM-ay-six"/>
+                        <constraint firstItem="xLx-Kx-Etl" firstAttribute="top" secondItem="Uqa-cl-HmZ" secondAttribute="top" constant="20" id="gAX-wj-txE"/>
+                        <constraint firstAttribute="trailing" secondItem="xLx-Kx-Etl" secondAttribute="trailing" constant="20" id="oxu-96-dmd"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Uqa-cl-HmZ" firstAttribute="centerX" secondItem="ivs-co-As1" secondAttribute="centerX" id="2qa-1j-gRN"/>
                 <constraint firstAttribute="trailing" secondItem="ivs-co-As1" secondAttribute="trailing" id="3kW-ce-GWT"/>
                 <constraint firstAttribute="trailing" secondItem="pwf-bY-2Pm" secondAttribute="trailing" id="7Qq-8m-EeX"/>
                 <constraint firstItem="pwf-bY-2Pm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GnU-bd-UVz"/>
                 <constraint firstItem="ivs-co-As1" firstAttribute="top" secondItem="pwf-bY-2Pm" secondAttribute="bottom" id="IQN-pF-NmX"/>
+                <constraint firstItem="Uqa-cl-HmZ" firstAttribute="width" secondItem="ivs-co-As1" secondAttribute="width" id="KIN-5S-zda"/>
+                <constraint firstItem="Uqa-cl-HmZ" firstAttribute="height" secondItem="ivs-co-As1" secondAttribute="height" id="PXr-c4-wLM"/>
                 <constraint firstAttribute="bottom" secondItem="ivs-co-As1" secondAttribute="bottom" constant="-100" id="aKU-dE-6a5"/>
+                <constraint firstItem="Uqa-cl-HmZ" firstAttribute="centerY" secondItem="ivs-co-As1" secondAttribute="centerY" id="gO1-IW-gKh"/>
                 <constraint firstItem="pwf-bY-2Pm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mou-7A-u30"/>
                 <constraint firstItem="ivs-co-As1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="owt-gd-tYl"/>
             </constraints>
