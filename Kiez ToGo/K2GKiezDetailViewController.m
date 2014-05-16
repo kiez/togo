@@ -313,7 +313,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     self.mapView.showsUserLocation = YES;
     
     if (self.mapView.userLocation.updating) {
-        [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+        [self zoomToKiezFromCoordinate: self.mapView.userLocation.coordinate];
     }
 }
 
