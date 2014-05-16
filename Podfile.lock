@@ -26,6 +26,8 @@ PODS:
   - ErrorKit/UIKit (0.1.1):
     - ErrorKit/Core
   - Foursquare-API-v2 (1.4.5)
+  - iOS-KML-Framework (1.0.0):
+    - TBXML (~> 1.5)
   - pop (1.0.4)
   - ReactiveCocoa (2.3):
     - ReactiveCocoa/UI
@@ -34,6 +36,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.3)
   - ReactiveCocoa/UI (2.3):
     - ReactiveCocoa/Core
+  - TBXML (1.5)
   - Tweaks (1.1.0)
 
 DEPENDENCIES:
@@ -43,16 +46,23 @@ DEPENDENCIES:
   - ErrorKit/HTTP
   - ErrorKit/UIKit
   - Foursquare-API-v2 (~> 1.4)
+  - iOS-KML-Framework (from `https://github.com/FLCLjp/iOS-KML-Framework.git`)
   - pop
   - ReactiveCocoa (~> 2.3)
   - Tweaks
+
+EXTERNAL SOURCES:
+  iOS-KML-Framework:
+    :git: https://github.com/FLCLjp/iOS-KML-Framework.git
 
 SPEC CHECKSUMS:
   AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
   ErrorKit: 02dcbcaea24ab4b04b0a0922dd5241dfeff24605
   Foursquare-API-v2: 60ab223d146bf2424b94006e26ffb227b9df3ab5
+  iOS-KML-Framework: af22c3c41f4205ddf565ee5b925749d9adec5606
   pop: 63a4f5e8942077fed2efe195036ecc572c71c48c
   ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
+  TBXML: 0511ac325d83e59d3aefa4bc8cd6cbeff07a8d9e
   Tweaks: 9337b5c9466d828bd6d69af3ccc124097472efad
 
 COCOAPODS: 0.32.1
