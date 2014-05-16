@@ -7,21 +7,27 @@
 //
 
 #import "K2GKiezDetailViewController.h"
+<<<<<<< HEAD
 #import <iOS-KML-Framework/KML.h>
 
 #import "KML+MapKit.h"
 #import "MKMap+KML.h"
+#import "K2GKiezDetailView.h"
+#import "K2GFoursquareVenueCell.h"
 
 static const CLLocationDegrees kBerlinLatitude  = 52.520078;
 static const CLLocationDegrees kBerlinLongitude = 13.405993;
 static const CLLocationDegrees kBerlinSpan = 0.35;
 
-@interface K2GKiezDetailViewController () <MKMapViewDelegate>
+static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
+
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) KMLRoot *kml;
 @property (nonatomic) NSArray *geometries;
 @property (nonatomic) NSArray *filteredGeometries;
+@property (nonatomic) K2GKiezDetailView *view;
 
 @end
 
@@ -30,6 +36,9 @@ static const CLLocationDegrees kBerlinSpan = 0.35;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+
+  self.view.tableView.dataSource = self;
+  [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
   
   CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
   MKCoordinateSpan span = MKCoordinateSpanMake(kBerlinSpan, kBerlinSpan);
@@ -93,6 +102,25 @@ static const CLLocationDegrees kBerlinSpan = 0.35;
   }
   
   return nil;
+}
+
+#pragma mark - UITableViewDataSource implementation
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    K2GFoursquareVenueCell *cell = [tableView dequeueReusableCellWithIdentifier:kFoursquareVenueCellReuseIdentifier];
+    
+    return cell;
 }
 
 @end

@@ -179,12 +179,13 @@
 			children = (
 				DAA5028E1926243D006A529B /* Data */,
 				DAA5026819262416006A529B /* Helpers */,
+				94A46DA4192621D500B79825 /* Models */,
 				E9660EB419261BEA00158C4F /* Views */,
+				94A46D96192619DA00B79825 /* View Controllers */,
 				94A46D711926165500B79825 /* K2GAppDelegate.h */,
 				94A46D721926165500B79825 /* K2GAppDelegate.m */,
 				94A46D741926165500B79825 /* Images.xcassets */,
 				94A46D691926165500B79825 /* Supporting Files */,
-				94A46D96192619DA00B79825 /* View Controllers */,
 			);
 			path = "Kiez ToGo";
 			sourceTree = "<group>";
@@ -287,6 +288,13 @@
 				DAA5028F19262464006A529B /* LOR-Bezirksregionen.kml */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		94A46DA4192621D500B79825 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		E9660EB419261BEA00158C4F /* Views */ = {

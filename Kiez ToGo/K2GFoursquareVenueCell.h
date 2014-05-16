@@ -10,6 +10,9 @@
 
 @interface K2GFoursquareVenueCell : UITableViewCell
 
-
+@property (nonatomic, weak) IBOutlet UILabel *gradeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *titleType;
+@property (nonatomic, weak) IBOutlet UILabel *addressLabel;
 
 @end
