@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 kiez e.V. GmbH (i.G.). All rights reserved.
 //
 
+#import "K2GKiezManager.h"
+
 #import "K2GKiezDetailViewController.h"
 
 #import "K2GAppDelegate.h"
@@ -25,6 +27,11 @@
     [self.window makeKeyAndVisible];
     
     [[K2GFoursquareManager sharedInstance] setupFoursquare];
+    
+    
+    
+    // just to test
+    [K2GKiezManager defaultManager];
     
     return YES;
 }

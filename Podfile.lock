@@ -18,6 +18,20 @@ PODS:
   - AFNetworking/UIKit (2.2.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CocoaLumberjack (1.8.1):
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.8.1)
+  - CocoaLumberjack/Extensions (1.8.1):
+    - CocoaLumberjack/Core
+  - CSSSelectorConverter (1.1.0):
+    - CocoaLumberjack (>= 1.6.4)
+    - CSSSelectorConverter/Core
+    - CSSSelectorConverter/CoreParse
+  - CSSSelectorConverter/Core (1.1.0):
+    - CocoaLumberjack (>= 1.6.4)
+    - CSSSelectorConverter/CoreParse
+  - CSSSelectorConverter/CoreParse (1.1.0):
+    - CocoaLumberjack (>= 1.6.4)
   - ErrorKit/Core (0.1.1)
   - ErrorKit/CoreData (0.1.1):
     - ErrorKit/Core
@@ -26,6 +40,10 @@ PODS:
   - ErrorKit/UIKit (0.1.1):
     - ErrorKit/Core
   - Foursquare-API-v2 (1.4.5)
+  - IGHTMLQuery (0.8.1):
+    - IGHTMLQuery/Core
+  - IGHTMLQuery/Core (0.8.1):
+    - CSSSelectorConverter (>= 1.1.0)
   - iOS-KML-Framework (1.0.0):
     - TBXML (~> 1.5)
   - pop (1.0.4)
@@ -47,6 +65,7 @@ DEPENDENCIES:
   - ErrorKit/HTTP
   - ErrorKit/UIKit
   - Foursquare-API-v2 (~> 1.4)
+  - IGHTMLQuery (~> 0.8.1)
   - iOS-KML-Framework (from `https://github.com/FLCLjp/iOS-KML-Framework.git`)
   - pop
   - ReactiveCocoa (~> 2.3)
@@ -59,8 +78,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
+  CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
+  CSSSelectorConverter: ebb22e71e71f141361ad6fd10ed45ae2acfcb6da
   ErrorKit: 02dcbcaea24ab4b04b0a0922dd5241dfeff24605
   Foursquare-API-v2: 60ab223d146bf2424b94006e26ffb227b9df3ab5
+  IGHTMLQuery: 6ef6ed70d3a818631da037c848f630a1e0904793
   iOS-KML-Framework: af22c3c41f4205ddf565ee5b925749d9adec5606
   pop: 63a4f5e8942077fed2efe195036ecc572c71c48c
   ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
