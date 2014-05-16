@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		94A46D631926165500B79825 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A46D621926165500B79825 /* Foundation.framework */; };
+		94A46D651926165500B79825 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A46D641926165500B79825 /* CoreGraphics.framework */; };
+		94A46D671926165500B79825 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A46D661926165500B79825 /* UIKit.framework */; };
+		94A46D6D1926165500B79825 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94A46D6B1926165500B79825 /* InfoPlist.strings */; };
+		94A46D6F1926165500B79825 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46D6E1926165500B79825 /* main.m */; };
+		94A46D731926165500B79825 /* K2GAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46D721926165500B79825 /* K2GAppDelegate.m */; };
+		94A46D751926165500B79825 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94A46D741926165500B79825 /* Images.xcassets */; };
+		94A46D7C1926165500B79825 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A46D7B1926165500B79825 /* XCTest.framework */; };
+		94A46D7D1926165500B79825 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A46D621926165500B79825 /* Foundation.framework */; };
+		94A46D7E1926165500B79825 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A46D661926165500B79825 /* UIKit.framework */; };
+		94A46D861926165500B79825 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94A46D841926165500B79825 /* InfoPlist.strings */; };
+		94A46D881926165500B79825 /* Kiez_ToGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46D871926165500B79825 /* Kiez_ToGoTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		94A46D7F1926165500B79825 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94A46D571926165500B79825 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94A46D5E1926165500B79825;
+			remoteInfo = "Kiez ToGo";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		94A46D5F1926165500B79825 /* Kiez ToGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kiez ToGo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		94A46D621926165500B79825 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		94A46D641926165500B79825 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		94A46D661926165500B79825 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		94A46D6A1926165500B79825 /* Kiez ToGo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kiez ToGo-Info.plist"; sourceTree = "<group>"; };
+		94A46D6C1926165500B79825 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		94A46D6E1926165500B79825 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		94A46D701926165500B79825 /* Kiez ToGo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiez ToGo-Prefix.pch"; sourceTree = "<group>"; };
+		94A46D711926165500B79825 /* K2GAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = K2GAppDelegate.h; sourceTree = "<group>"; };
+		94A46D721926165500B79825 /* K2GAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = K2GAppDelegate.m; sourceTree = "<group>"; };
+		94A46D741926165500B79825 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		94A46D7A1926165500B79825 /* Kiez ToGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kiez ToGoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		94A46D7B1926165500B79825 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		94A46D831926165500B79825 /* Kiez ToGoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kiez ToGoTests-Info.plist"; sourceTree = "<group>"; };
+		94A46D851926165500B79825 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		94A46D871926165500B79825 /* Kiez_ToGoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Kiez_ToGoTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		94A46D5C1926165500B79825 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A46D651926165500B79825 /* CoreGraphics.framework in Frameworks */,
+				94A46D671926165500B79825 /* UIKit.framework in Frameworks */,
+				94A46D631926165500B79825 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94A46D771926165500B79825 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A46D7C1926165500B79825 /* XCTest.framework in Frameworks */,
+				94A46D7E1926165500B79825 /* UIKit.framework in Frameworks */,
+				94A46D7D1926165500B79825 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		94A46D561926165500B79825 = {
+			isa = PBXGroup;
+			children = (
+				94A46D681926165500B79825 /* Kiez ToGo */,
+				94A46D811926165500B79825 /* Kiez ToGoTests */,
+				94A46D611926165500B79825 /* Frameworks */,
+				94A46D601926165500B79825 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		94A46D601926165500B79825 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				94A46D5F1926165500B79825 /* Kiez ToGo.app */,
+				94A46D7A1926165500B79825 /* Kiez ToGoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		94A46D611926165500B79825 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94A46D621926165500B79825 /* Foundation.framework */,
+				94A46D641926165500B79825 /* CoreGraphics.framework */,
+				94A46D661926165500B79825 /* UIKit.framework */,
+				94A46D7B1926165500B79825 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		94A46D681926165500B79825 /* Kiez ToGo */ = {
+			isa = PBXGroup;
+			children = (
+				94A46D711926165500B79825 /* K2GAppDelegate.h */,
+				94A46D721926165500B79825 /* K2GAppDelegate.m */,
+				94A46D741926165500B79825 /* Images.xcassets */,
+				94A46D691926165500B79825 /* Supporting Files */,
+			);
+			path = "Kiez ToGo";
+			sourceTree = "<group>";
+		};
+		94A46D691926165500B79825 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				94A46D6A1926165500B79825 /* Kiez ToGo-Info.plist */,
+				94A46D6B1926165500B79825 /* InfoPlist.strings */,
+				94A46D6E1926165500B79825 /* main.m */,
+				94A46D701926165500B79825 /* Kiez ToGo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94A46D811926165500B79825 /* Kiez ToGoTests */ = {
+			isa = PBXGroup;
+			children = (
+				94A46D871926165500B79825 /* Kiez_ToGoTests.m */,
+				94A46D821926165500B79825 /* Supporting Files */,
+			);
+			path = "Kiez ToGoTests";
+			sourceTree = "<group>";
+		};
+		94A46D821926165500B79825 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				94A46D831926165500B79825 /* Kiez ToGoTests-Info.plist */,
+				94A46D841926165500B79825 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		94A46D5E1926165500B79825 /* Kiez ToGo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94A46D8B1926165500B79825 /* Build configuration list for PBXNativeTarget "Kiez ToGo" */;
+			buildPhases = (
+				94A46D5B1926165500B79825 /* Sources */,
+				94A46D5C1926165500B79825 /* Frameworks */,
+				94A46D5D1926165500B79825 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Kiez ToGo";
+			productName = "Kiez ToGo";
+			productReference = 94A46D5F1926165500B79825 /* Kiez ToGo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		94A46D791926165500B79825 /* Kiez ToGoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94A46D8E1926165500B79825 /* Build configuration list for PBXNativeTarget "Kiez ToGoTests" */;
+			buildPhases = (
+				94A46D761926165500B79825 /* Sources */,
+				94A46D771926165500B79825 /* Frameworks */,
+				94A46D781926165500B79825 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				94A46D801926165500B79825 /* PBXTargetDependency */,
+			);
+			name = "Kiez ToGoTests";
+			productName = "Kiez ToGoTests";
+			productReference = 94A46D7A1926165500B79825 /* Kiez ToGoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		94A46D571926165500B79825 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = K2G;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "kiez e.V. GmbH (i.G.)";
+				TargetAttributes = {
+					94A46D791926165500B79825 = {
+						TestTargetID = 94A46D5E1926165500B79825;
+					};
+				};
+			};
+			buildConfigurationList = 94A46D5A1926165500B79825 /* Build configuration list for PBXProject "Kiez ToGo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 94A46D561926165500B79825;
+			productRefGroup = 94A46D601926165500B79825 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				94A46D5E1926165500B79825 /* Kiez ToGo */,
+				94A46D791926165500B79825 /* Kiez ToGoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		94A46D5D1926165500B79825 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A46D6D1926165500B79825 /* InfoPlist.strings in Resources */,
+				94A46D751926165500B79825 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94A46D781926165500B79825 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A46D861926165500B79825 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		94A46D5B1926165500B79825 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A46D6F1926165500B79825 /* main.m in Sources */,
+				94A46D731926165500B79825 /* K2GAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94A46D761926165500B79825 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A46D881926165500B79825 /* Kiez_ToGoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		94A46D801926165500B79825 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94A46D5E1926165500B79825 /* Kiez ToGo */;
+			targetProxy = 94A46D7F1926165500B79825 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		94A46D6B1926165500B79825 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94A46D6C1926165500B79825 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		94A46D841926165500B79825 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94A46D851926165500B79825 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		94A46D891926165500B79825 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		94A46D8A1926165500B79825 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		94A46D8C1926165500B79825 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Kiez ToGo/Kiez ToGo-Prefix.pch";
+				INFOPLIST_FILE = "Kiez ToGo/Kiez ToGo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		94A46D8D1926165500B79825 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Kiez ToGo/Kiez ToGo-Prefix.pch";
+				INFOPLIST_FILE = "Kiez ToGo/Kiez ToGo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		94A46D8F1926165500B79825 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Kiez ToGo.app/Kiez ToGo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Kiez ToGo/Kiez ToGo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Kiez ToGoTests/Kiez ToGoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		94A46D901926165500B79825 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Kiez ToGo.app/Kiez ToGo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Kiez ToGo/Kiez ToGo-Prefix.pch";
+				INFOPLIST_FILE = "Kiez ToGoTests/Kiez ToGoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		94A46D5A1926165500B79825 /* Build configuration list for PBXProject "Kiez ToGo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94A46D891926165500B79825 /* Debug */,
+				94A46D8A1926165500B79825 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		94A46D8B1926165500B79825 /* Build configuration list for PBXNativeTarget "Kiez ToGo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94A46D8C1926165500B79825 /* Debug */,
+				94A46D8D1926165500B79825 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		94A46D8E1926165500B79825 /* Build configuration list for PBXNativeTarget "Kiez ToGoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94A46D8F1926165500B79825 /* Debug */,
+				94A46D901926165500B79825 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 94A46D571926165500B79825 /* Project object */;
+}
