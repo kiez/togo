@@ -56,6 +56,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 @property (nonatomic, strong) K2GKiez *activeKiez;
 @property (nonatomic, strong) MKPolygon *activePolygon;
 
+@property (nonatomic) BOOL foundAccurateUserLocation;
+
 @end
 
 @implementation K2GKiezDetailViewController
@@ -63,6 +65,10 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"curloc"] style:UIBarButtonItemStylePlain target:self action:@selector(focusOnCurrentLocation:)];
+    
+    self.navigationItem.rightBarButtonItem = item;
     
     self.state = K2GKiezDetailViewControllerStateDetail;
     
@@ -285,10 +291,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     } else {
         self.navigationItem.title = @"Kiez To Go";
         
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"curloc"] style:UIBarButtonItemStylePlain target:self action:@selector(focusOnCurrentLocation:)];
-        
-        self.navigationItem.rightBarButtonItem = item;
-        
         [self.view showOverviewAnimated:anim];
     }
 }
@@ -368,8 +370,9 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
     CLLocation *location = [userLocation location];
     
-    if (location.horizontalAccuracy < kDesiredLocationAccuracy)
+    if (location.horizontalAccuracy < kDesiredLocationAccuracy && self.foundAccurateUserLocation == NO)
     {
+        self.foundAccurateUserLocation = YES;
         [self zoomToKiezFromCoordinate:location.coordinate];
     }
 }
