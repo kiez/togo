@@ -7,25 +7,46 @@
 //
 
 #import "K2GKiezDetailView.h"
+#import <pop/POP.h>
+#import "NSObject+POPExtensions.h"
 
 @implementation K2GKiezDetailView
 
-- (id)initWithFrame:(CGRect)frame
+- (void)awakeFromNib
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    UIView *borderBetweenMapAndTable = [UIView new];
+    borderBetweenMapAndTable.backgroundColor = [UIColor colorWithWhite:0.763 alpha:1.000];
+    borderBetweenMapAndTable.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview: borderBetweenMapAndTable];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_mapView][borderBetweenMapAndTable(1)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_mapView, borderBetweenMapAndTable)]];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[borderBetweenMapAndTable]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(borderBetweenMapAndTable)]];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)showOverviewAnimated: (BOOL)animated
 {
-    // Drawing code
+    POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
+    mapViewHeightAnim.toValue = @(CGRectGetHeight(self.frame));
 }
-*/
+
+- (void)showKiezDetailsAnimated: (BOOL)animated
+{
+    POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
+    mapViewHeightAnim.toValue = @(235);
+}
+
+- (POPPropertyAnimation *) mapViewHeightAnimation
+{
+    return (POPPropertyAnimation *)[self.mapViewHeightConstraint pop_animationForKey:@"height" orInitializeWithBlock:^POPAnimation *{
+        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
+        anim.springSpeed = 3;
+        anim.springBounciness = 10;
+        
+        return anim;
+    }];
+}
+
+
 
 @end

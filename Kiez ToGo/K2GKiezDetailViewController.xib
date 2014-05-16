@@ -16,22 +16,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pwf-bY-2Pm">
-                    <rect key="frame" x="0.0" y="57" width="320" height="235"/>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pwf-bY-2Pm">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="292"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="292" id="U5N-6v-Uf6"/>
+                    </constraints>
                     <connections>
                         <outlet property="delegate" destination="-1" id="JsH-9o-oFM"/>
+                        <outletCollection property="gestureRecognizers" destination="LGw-rF-djt" appends="YES" id="vJy-LK-zAc"/>
                     </connections>
                 </mapView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-gi-mTg">
-                    <rect key="frame" x="0.0" y="28" width="320" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ivs-co-As1">
-                    <rect key="frame" x="0.0" y="300" width="320" height="268"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ivs-co-As1">
+                    <rect key="frame" x="0.0" y="292" width="320" height="376"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -41,13 +39,27 @@
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ivs-co-As1" secondAttribute="trailing" id="3kW-ce-GWT"/>
+                <constraint firstAttribute="trailing" secondItem="pwf-bY-2Pm" secondAttribute="trailing" id="7Qq-8m-EeX"/>
+                <constraint firstItem="pwf-bY-2Pm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GnU-bd-UVz"/>
+                <constraint firstItem="ivs-co-As1" firstAttribute="top" secondItem="pwf-bY-2Pm" secondAttribute="bottom" id="IQN-pF-NmX"/>
+                <constraint firstAttribute="bottom" secondItem="ivs-co-As1" secondAttribute="bottom" constant="-100" id="aKU-dE-6a5"/>
+                <constraint firstItem="pwf-bY-2Pm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mou-7A-u30"/>
+                <constraint firstItem="ivs-co-As1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="owt-gd-tYl"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <connections>
                 <outlet property="mapView" destination="pwf-bY-2Pm" id="JC7-7O-xeD"/>
+                <outlet property="mapViewHeightConstraint" destination="U5N-6v-Uf6" id="2lv-AX-8JI"/>
                 <outlet property="tableView" destination="ivs-co-As1" id="KHx-aJ-Qgb"/>
-                <outlet property="titleLable" destination="xC1-gi-mTg" id="i40-zr-b9z"/>
             </connections>
         </view>
+        <tapGestureRecognizer id="LGw-rF-djt">
+            <connections>
+                <action selector="mapViewTapped:" destination="-1" id="zWq-xQ-etW"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

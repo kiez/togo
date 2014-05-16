@@ -9,11 +9,19 @@
 #import "K2GKiezDetailViewController.h"
 #import <iOS-KML-Framework/KML.h>
 
+#import "K2GKiezManager.h"
+#import "K2GKiez.h"
+
 #import "KML+MapKit.h"
 #import "MKMap+KML.h"
 #import "K2GKiezDetailView.h"
 #import "K2GFoursquareVenueCell.h"
 #import "KMLPolygon+K2G.h"
+#import "K2GFoursquareVenueViewController.h"
+
+#import "K2GFoursquareManager.h"
+#import "K2GFSVenue.h"
+#import "K2GFSLocation.h"
 
 static const CLLocationDegrees kBerlinLatitude  = 52.520078;
 static const CLLocationDegrees kBerlinLongitude = 13.405993;
@@ -23,7 +31,7 @@ static const CLLocationAccuracy kDesiredLocationAccuracy = 100; // meters
 
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
-@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) KMLRoot *kml;
@@ -31,8 +39,10 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (nonatomic, strong) NSMutableDictionary *mapFromOverlayIndexToPlacemarkName;
+@property (nonatomic, strong) NSMutableDictionary *mapFromOverlayIndexToKiez;
 @property (nonatomic, copy) NSArray *overlays;
+
+@property (nonatomic, strong) NSArray *venues;
 
 @end
 
@@ -42,7 +52,12 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
   [super viewDidLoad];
 
+  self.navigationItem.title = @"Mitte";
+  
   self.view.tableView.dataSource = self;
+  self.view.tableView.delegate = self;
+  self.view.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 100, 0);
+  self.view.tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
   [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
   
   CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
@@ -64,35 +79,61 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
   [self.locationManager startUpdatingLocation];
   [self.spinner startAnimating];
+  
+  [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
+  
+  [[K2GFoursquareManager sharedInstance] requestVenuesAround:CLLocationCoordinate2DMake(52.546430, 13.361980)
+                                                     handler:^(NSArray *venues, NSError *error) {
+                                                         _venues = venues;
+                                                         [self.view.tableView reloadData];
+                                                     }];
 }
 
 - (void)reloadMapView
 {
-  if (!self.mapFromOverlayIndexToPlacemarkName)
+  if (!self.mapFromOverlayIndexToKiez)
   {
-    self.mapFromOverlayIndexToPlacemarkName = [NSMutableDictionary new];
+    self.mapFromOverlayIndexToKiez = [NSMutableDictionary new];
   }
   
   NSMutableArray *annotations = [NSMutableArray new];
   NSMutableArray *overlays    = [NSMutableArray new];
   
-  [self.kml.placemarks enumerateObjectsUsingBlock:^(KMLPlacemark *placemark, NSUInteger idx, BOOL *stop)
+  
+  [[[K2GKiezManager defaultManager] kiezes] enumerateObjectsUsingBlock:^(K2GKiez *kiez, NSUInteger idx, BOOL *stop)
    {
-     KMLAbstractGeometry *geometry = [self geometryForPlacemark:placemark];
-
+     KMLAbstractGeometry *geometry = kiez.geometry;
      MKShape *mkShape = [geometry mapkitShape];
      if (mkShape) {
        if ([mkShape conformsToProtocol:@protocol(MKOverlay)]) {
          NSNumber *index = @([overlays count]);
          [overlays addObject:mkShape];
-         
-         self.mapFromOverlayIndexToPlacemarkName[index] = placemark.name;
+         self.mapFromOverlayIndexToKiez[index] = kiez;
        }
        else if ([mkShape isKindOfClass:[MKPointAnnotation class]]) {
          [annotations addObject:mkShape];
        }
      }
    }];
+
+  
+//  [self.kml.placemarks enumerateObjectsUsingBlock:^(KMLPlacemark *placemark, NSUInteger idx, BOOL *stop)
+//   {
+//     KMLAbstractGeometry *geometry = [self geometryForPlacemark:placemark];
+//
+//     MKShape *mkShape = [geometry mapkitShape];
+//     if (mkShape) {
+//       if ([mkShape conformsToProtocol:@protocol(MKOverlay)]) {
+//         NSNumber *index = @([overlays count]);
+//         [overlays addObject:mkShape];
+//         
+//         self.mapFromOverlayIndexToPlacemarkName[index] = placemark.name;
+//       }
+//       else if ([mkShape isKindOfClass:[MKPointAnnotation class]]) {
+//         [annotations addObject:mkShape];
+//       }
+//     }
+//   }];
   
   [self.mapView addAnnotations:annotations];
   [self.mapView addOverlays:overlays];
@@ -106,31 +147,27 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   [self.spinner stopAnimating];
 }
 
-- (void)zoomToKiezFromLocation:(CLLocation *)location
+- (void)zoomToKiezFromCoordinate:(CLLocationCoordinate2D)coordinate
 {
-  DLog(@"user location: %@", location);
-  
-  KMLPlacemark *foundPlacemark = nil;
+  K2GKiez *kiez = nil;
   for (NSUInteger i = 0; i < [self.overlays count]; ++i)
   {
     MKPolygon *polygon = self.overlays[i];
-    if ([self polygon:polygon contains:location.coordinate])
+    if ([self polygon:polygon contains:coordinate])
     {
       NSNumber *index = @(i);
-      NSString *name = self.mapFromOverlayIndexToPlacemarkName[index];
-      foundPlacemark = [self placemarkForName:name];
+      kiez = self.mapFromOverlayIndexToKiez[index];
       break;
     }
   }
   
-  if (!foundPlacemark)
+  if (!kiez)
   {
-    DLog(@"user not in kiez");
+    DLog(@"coordinate not in any kiez");
     return;
   }
 
-  DLog(@"kiez found: %@", foundPlacemark.name);
-  KMLPolygon *polygon = (KMLPolygon *) [self geometryForPlacemark:foundPlacemark];
+  KMLPolygon *polygon = (KMLPolygon *) kiez.geometry;
   
   CLLocationCoordinate2D kiezCenterCoordinate = [polygon centerCoordinate];
   MKCoordinateSpan span = MKCoordinateSpanMake(kKiezSpan, kKiezSpan);
@@ -183,60 +220,51 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
 }
 
-- (BOOL)notworking_polygon:(MKPolygon *)polygon contains:(CLLocationCoordinate2D)coordinate
+#pragma mark UI Callbacks
+- (IBAction)mapViewTapped:(UITapGestureRecognizer *)sender
 {
-
-  // see http://stackoverflow.com/questions/19014926/detecting-a-point-in-a-mkpolygon-broke-with-ios7-cgpathcontainspoint
+  //    if (self.mapView.frame.size.height > 235) {
+  //        [self.view showKiezDetailsAnimated:YES];
+  //    } else {
+  //        [self.view showOverviewAnimated:YES];
+  //    }
   
-  MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
-  
-  CGMutablePathRef mpr = CGPathCreateMutable();
-  
-  MKMapPoint *polygonPoints = polygon.points;
-  
-  for (int p=0; p < polygon.pointCount; p++)
+  if (sender.state != UIGestureRecognizerStateEnded)
   {
-    MKMapPoint mp = polygonPoints[p];
-    if (p == 0)
-      CGPathMoveToPoint(mpr, NULL, mp.x, mp.y);
-    else
-      CGPathAddLineToPoint(mpr, NULL, mp.x, mp.y);
+    return;
   }
   
-  CGPoint mapPointAsCGP = CGPointMake(mapPoint.x, mapPoint.y);
+  CGPoint point = [sender locationInView:sender.view];
+  CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
   
-  BOOL pointIsInPolygon = CGPathContainsPoint(mpr, NULL, mapPointAsCGP, FALSE);
-  
-  CGPathRelease(mpr);
-  
-  return pointIsInPolygon;
+  [self zoomToKiezFromCoordinate:coordinate];
 }
 
 #pragma mark MKMapViewDelegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-  if ([annotation isKindOfClass:[MKUserLocation class]]) {
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    else if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
+        MKPointAnnotation *pointAnnotation = (MKPointAnnotation *)annotation;
+        return [pointAnnotation annotationViewForMapView:mapView];
+    }
+    
     return nil;
-  }
-  else if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
-    MKPointAnnotation *pointAnnotation = (MKPointAnnotation *)annotation;
-    return [pointAnnotation annotationViewForMapView:mapView];
-  }
-  
-  return nil;
 }
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
-  if ([overlay isKindOfClass:[MKPolyline class]]) {
-    return [(MKPolyline *)overlay overlayViewForMapView:mapView];
-  }
-  else if ([overlay isKindOfClass:[MKPolygon class]]) {
-    return [(MKPolygon *)overlay overlayViewForMapView:mapView];
-  }
-  
-  return nil;
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        return [(MKPolyline *)overlay overlayViewForMapView:mapView];
+    }
+    else if ([overlay isKindOfClass:[MKPolygon class]]) {
+        return [(MKPolygon *)overlay overlayViewForMapView:mapView];
+    }
+    
+    return nil;
 }
 
 #pragma mark - UITableViewDataSource implementation
@@ -245,17 +273,50 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return _venues.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     K2GFoursquareVenueCell *cell = [tableView dequeueReusableCellWithIdentifier:kFoursquareVenueCellReuseIdentifier];
     
+    K2GFSVenue *venue = _venues[indexPath.row];
+    if (venue.rating == MAXFLOAT) {
+        cell.gradeLabel.text = @"--";
+    } else {
+        cell.gradeLabel.text = [NSString stringWithFormat:@"%1.1f", venue.rating];
+    }
+    cell.titleLabel.text = venue.name;
+    cell.titleType.text = venue.primaryCategoryName;
+    cell.addressLabel.text = venue.location.address;
+    
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    K2GFSVenue *venue = _venues[indexPath.row];
+    [self openDetailsOfVenueWithIdentifier:venue.identifier];
+}
+
+- (void) openDetailsOfVenueWithIdentifier: (NSString *) venueIdentifier
+{
+    NSURL *nativeAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", venueIdentifier]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:nativeAppURL]) {
+        [[UIApplication sharedApplication] openURL: nativeAppURL];
+        [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
+    } else {
+        K2GFoursquareVenueViewController *venueDetailVC = [[K2GFoursquareVenueViewController alloc] initWithVenueIdentifier:venueIdentifier];
+        [self.navigationController pushViewController:venueDetailVC animated:YES];
+    }
 }
 
 #pragma mark Location & CLLocationManagerDelegate
@@ -287,7 +348,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   if (location.horizontalAccuracy < kDesiredLocationAccuracy)
   {
     [self stopLocationUpdates];
-    [self zoomToKiezFromLocation:location];
+    [self zoomToKiezFromCoordinate:location.coordinate];
   }
 }
 

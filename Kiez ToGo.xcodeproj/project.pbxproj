@@ -26,7 +26,12 @@
 		94A46D9B192619EC00B79825 /* K2GMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A46D99192619EC00B79825 /* K2GMapViewController.xib */; };
 		94A46DA219261A0800B79825 /* K2GFoursquareVenueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46DA019261A0800B79825 /* K2GFoursquareVenueViewController.m */; };
 		94A46DA319261A0800B79825 /* K2GFoursquareVenueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A46DA119261A0800B79825 /* K2GFoursquareVenueViewController.xib */; };
-		DAA5029019262464006A529B /* LOR-Bezirksregionen.kml in Resources */ = {isa = PBXBuildFile; fileRef = DAA5028F19262464006A529B /* LOR-Bezirksregionen.kml */; };
+		94A46DB319262B0E00B79825 /* K2GKiez.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46DB219262B0E00B79825 /* K2GKiez.m */; };
+		94A46DB719262B2200B79825 /* K2GKiezManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46DB619262B2200B79825 /* K2GKiezManager.m */; };
+		94C25B9A1926483600C2255E /* K2GFoursquareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F291119264041007A46E5 /* K2GFoursquareManager.m */; };
+		94C25B9B1926484900C2255E /* K2GFSVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F29161926404F007A46E5 /* K2GFSVenue.m */; };
+		94C25B9C1926484C00C2255E /* K2GFSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F29141926404F007A46E5 /* K2GFSLocation.m */; };
+		94C25B9E1926499000C2255E /* LOR-Planungsraeume.kml in Resources */ = {isa = PBXBuildFile; fileRef = 94C25B9D1926499000C2255E /* LOR-Planungsraeume.kml */; };
 		DAA502AB192629DF006A529B /* KMLAbstractGeometry+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50294192629DF006A529B /* KMLAbstractGeometry+MapKit.m */; };
 		DAA502AC192629DF006A529B /* KMLLineString+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50296192629DF006A529B /* KMLLineString+MapKit.m */; };
 		DAA502AD192629DF006A529B /* KMLPlacemark+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50298192629DF006A529B /* KMLPlacemark+MapKit.m */; };
@@ -43,6 +48,7 @@
 		E9660EB919261CE500158C4F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9660EB819261CE500158C4F /* MapKit.framework */; };
 		E9660EBD19261DD300158C4F /* K2GFoursquareVenueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9660EBB19261DD300158C4F /* K2GFoursquareVenueCell.m */; };
 		E9660EBE19261DD300158C4F /* K2GFoursquareVenueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9660EBC19261DD300158C4F /* K2GFoursquareVenueCell.xib */; };
+		E9FBDA2E192644A3009FA4A8 /* NSObject+POPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FBDA2D192644A3009FA4A8 /* NSObject+POPExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,8 +88,18 @@
 		94A46D9F19261A0800B79825 /* K2GFoursquareVenueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareVenueViewController.h; sourceTree = "<group>"; };
 		94A46DA019261A0800B79825 /* K2GFoursquareVenueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareVenueViewController.m; sourceTree = "<group>"; };
 		94A46DA119261A0800B79825 /* K2GFoursquareVenueViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = K2GFoursquareVenueViewController.xib; sourceTree = "<group>"; };
+		94A46DB119262B0E00B79825 /* K2GKiez.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GKiez.h; sourceTree = "<group>"; };
+		94A46DB219262B0E00B79825 /* K2GKiez.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GKiez.m; sourceTree = "<group>"; };
+		94A46DB519262B2200B79825 /* K2GKiezManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GKiezManager.h; sourceTree = "<group>"; };
+		94A46DB619262B2200B79825 /* K2GKiezManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GKiezManager.m; sourceTree = "<group>"; };
+		94C25B9D1926499000C2255E /* LOR-Planungsraeume.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "LOR-Planungsraeume.kml"; sourceTree = "<group>"; };
 		94F22D0A9AB74849B4906F4A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		DAA5028F19262464006A529B /* LOR-Bezirksregionen.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "LOR-Bezirksregionen.kml"; sourceTree = "<group>"; };
+		AA7F291019264041007A46E5 /* K2GFoursquareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareManager.h; sourceTree = "<group>"; };
+		AA7F291119264041007A46E5 /* K2GFoursquareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareManager.m; sourceTree = "<group>"; };
+		AA7F29131926404F007A46E5 /* K2GFSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFSLocation.h; sourceTree = "<group>"; };
+		AA7F29141926404F007A46E5 /* K2GFSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFSLocation.m; sourceTree = "<group>"; };
+		AA7F29151926404F007A46E5 /* K2GFSVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFSVenue.h; sourceTree = "<group>"; };
+		AA7F29161926404F007A46E5 /* K2GFSVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFSVenue.m; sourceTree = "<group>"; };
 		DAA50292192629DF006A529B /* KML+MapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KML+MapKit.h"; sourceTree = "<group>"; };
 		DAA50293192629DF006A529B /* KMLAbstractGeometry+MapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KMLAbstractGeometry+MapKit.h"; sourceTree = "<group>"; };
 		DAA50294192629DF006A529B /* KMLAbstractGeometry+MapKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KMLAbstractGeometry+MapKit.m"; sourceTree = "<group>"; };
@@ -116,6 +132,8 @@
 		E9660EBA19261DD300158C4F /* K2GFoursquareVenueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareVenueCell.h; sourceTree = "<group>"; };
 		E9660EBB19261DD300158C4F /* K2GFoursquareVenueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareVenueCell.m; sourceTree = "<group>"; };
 		E9660EBC19261DD300158C4F /* K2GFoursquareVenueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = K2GFoursquareVenueCell.xib; sourceTree = "<group>"; };
+		E9FBDA2C192644A3009FA4A8 /* NSObject+POPExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+POPExtensions.h"; sourceTree = "<group>"; };
+		E9FBDA2D192644A3009FA4A8 /* NSObject+POPExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+POPExtensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +198,7 @@
 		94A46D681926165500B79825 /* Kiez ToGo */ = {
 			isa = PBXGroup;
 			children = (
+				94A46DB419262B1700B79825 /* Managers */,
 				DAA5028E1926243D006A529B /* Data */,
 				DAA5026819262416006A529B /* Helpers */,
 				94A46DA4192621D500B79825 /* Models */,
@@ -241,13 +260,39 @@
 		94A46DA4192621D500B79825 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA7F29151926404F007A46E5 /* K2GFSVenue.h */,
+				AA7F29161926404F007A46E5 /* K2GFSVenue.m */,
+				AA7F29131926404F007A46E5 /* K2GFSLocation.h */,
+				AA7F29141926404F007A46E5 /* K2GFSLocation.m */,
+				94A46DB119262B0E00B79825 /* K2GKiez.h */,
+				94A46DB219262B0E00B79825 /* K2GKiez.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		94A46DB419262B1700B79825 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				94A46DB519262B2200B79825 /* K2GKiezManager.h */,
+				94A46DB619262B2200B79825 /* K2GKiezManager.m */,
+				AA7F290F1926402B007A46E5 /* Foursquare */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		AA7F290F1926402B007A46E5 /* Foursquare */ = {
+			isa = PBXGroup;
+			children = (
+				AA7F291019264041007A46E5 /* K2GFoursquareManager.h */,
+				AA7F291119264041007A46E5 /* K2GFoursquareManager.m */,
+			);
+			name = Foursquare;
 			sourceTree = "<group>";
 		};
 		DAA5026819262416006A529B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E9FBDA2B19264493009FA4A8 /* POP */,
 				DAA50291192629DF006A529B /* KML+MapKit */,
 				DAA5029F192629DF006A529B /* MKMap+KML */,
 				DAA502B619263DDF006A529B /* KMLPolygon+K2G.h */,
@@ -259,7 +304,7 @@
 		DAA5028E1926243D006A529B /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DAA5028F19262464006A529B /* LOR-Bezirksregionen.kml */,
+				94C25B9D1926499000C2255E /* LOR-Planungsraeume.kml */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -312,6 +357,15 @@
 				E9660EBC19261DD300158C4F /* K2GFoursquareVenueCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E9FBDA2B19264493009FA4A8 /* POP */ = {
+			isa = PBXGroup;
+			children = (
+				E9FBDA2C192644A3009FA4A8 /* NSObject+POPExtensions.h */,
+				E9FBDA2D192644A3009FA4A8 /* NSObject+POPExtensions.m */,
+			);
+			name = POP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,7 +446,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAA5029019262464006A529B /* LOR-Bezirksregionen.kml in Resources */,
+				94C25B9E1926499000C2255E /* LOR-Planungsraeume.kml in Resources */,
 				94A46D6D1926165500B79825 /* InfoPlist.strings in Resources */,
 				E9660EBE19261DD300158C4F /* K2GFoursquareVenueCell.xib in Resources */,
 				94A46D95192619BD00B79825 /* K2GKiezDetailViewController.xib in Resources */,
@@ -453,19 +507,25 @@
 				DAA502AC192629DF006A529B /* KMLLineString+MapKit.m in Sources */,
 				94A46D6F1926165500B79825 /* main.m in Sources */,
 				DAA502AE192629DF006A529B /* KMLPoint+MapKit.m in Sources */,
+				94C25B9A1926483600C2255E /* K2GFoursquareManager.m in Sources */,
 				E9660EBD19261DD300158C4F /* K2GFoursquareVenueCell.m in Sources */,
 				DAA502B5192629DF006A529B /* MKShape+KML.m in Sources */,
+				94A46DB719262B2200B79825 /* K2GKiezManager.m in Sources */,
 				DAA502B2192629DF006A529B /* MKOverlayView+KML.m in Sources */,
+				94C25B9C1926484C00C2255E /* K2GFSLocation.m in Sources */,
 				94A46D94192619BD00B79825 /* K2GKiezDetailViewController.m in Sources */,
 				DAA502B0192629DF006A529B /* KMLRoot+MapKit.m in Sources */,
 				94A46DA219261A0800B79825 /* K2GFoursquareVenueViewController.m in Sources */,
 				DAA502B3192629DF006A529B /* MKPolygonView+KML.m in Sources */,
 				DAA502B819263DDF006A529B /* KMLPolygon+K2G.m in Sources */,
 				DAA502AB192629DF006A529B /* KMLAbstractGeometry+MapKit.m in Sources */,
+				94A46DB319262B0E00B79825 /* K2GKiez.m in Sources */,
 				DAA502AF192629DF006A529B /* KMLPolygon+MapKit.m in Sources */,
+				E9FBDA2E192644A3009FA4A8 /* NSObject+POPExtensions.m in Sources */,
 				94A46D9A192619EC00B79825 /* K2GMapViewController.m in Sources */,
 				DAA502B1192629DF006A529B /* MKAnnotationView+KML.m in Sources */,
 				94A46D731926165500B79825 /* K2GAppDelegate.m in Sources */,
+				94C25B9B1926484900C2255E /* K2GFSVenue.m in Sources */,
 				E9660EB719261C0B00158C4F /* K2GKiezDetailView.m in Sources */,
 				DAA502B4192629DF006A529B /* MKPolylineView+KML.m in Sources */,
 				DAA502AD192629DF006A529B /* KMLPlacemark+MapKit.m in Sources */,

@@ -10,15 +10,27 @@
 
 @interface K2GFoursquareVenueViewController ()
 
+@property (nonatomic,copy) NSString *venueIdentifier;
+@property (nonatomic, weak) IBOutlet UIWebView *webView;
+
 @end
 
 @implementation K2GFoursquareVenueViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype) init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [self initWithVenueIdentifier:@"4ade123bf964a520d87221e3"];
     if (self) {
-        // Custom initialization
+        
+    }
+    return self;
+}
+
+- (instancetype) initWithVenueIdentifier: (NSString *) identifier
+{
+    self = [super init];
+    if (self) {
+        _venueIdentifier = identifier;
     }
     return self;
 }
@@ -27,6 +39,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://foursquare.com/venue/%@", self.venueIdentifier];
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 }
 
 - (void)didReceiveMemoryWarning

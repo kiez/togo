@@ -10,4 +10,6 @@
 
 @interface K2GFoursquareVenueViewController : UIViewController
 
+- (instancetype) initWithVenueIdentifier: (NSString *) identifier;
+
 @end

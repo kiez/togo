@@ -7,19 +7,34 @@
 //
 
 #import "K2GFoursquareVenueCell.h"
+#import <Tweaks/FBTweakInline.h>
 
 @implementation K2GFoursquareVenueCell
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    [self.gradeLabel layoutIfNeeded];
+    
+    self.gradeLabel.layer.cornerRadius = 20;
+    self.gradeLabel.backgroundColor = [self tintColor];
+    self.gradeLabel.textColor = [UIColor whiteColor];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    UIColor *targetColor = selected ? [UIColor colorWithWhite:0.930 alpha:1.000] : [UIColor clearColor];;
+    
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.backgroundColor = targetColor;
+        }];
+    } else {
+        self.backgroundColor = targetColor;
+    }
 }
 
 @end
