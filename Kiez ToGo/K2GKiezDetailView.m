@@ -48,8 +48,8 @@
 {
     return (POPPropertyAnimation *)[self.mapViewHeightConstraint pop_animationForKey:@"height" orInitializeWithBlock:^POPAnimation *{
         POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
-        anim.springSpeed = 3;
-        anim.springBounciness = 10;
+//        anim.springSpeed = 3;
+//        anim.springBounciness = 10;
         
         return anim;
     }];

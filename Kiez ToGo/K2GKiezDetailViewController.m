@@ -308,6 +308,10 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
         CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
   
         [self zoomToKiezFromCoordinate:coordinate];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self setState:K2GKiezDetailViewControllerStateDetail animated:YES];
+        });
+        
     } else {
         [self setState:K2GKiezDetailViewControllerStateOverview animated: YES];
     }
