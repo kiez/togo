@@ -36,12 +36,11 @@ static const CLLocationAccuracy kDesiredLocationAccuracy = 100; // meters
 
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
-@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITableViewDelegate>
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) KMLRoot *kml;
 @property (nonatomic) K2GKiezDetailView *view;
-@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (nonatomic, strong) NSMutableDictionary *mapFromOverlayIndexToKiez;
@@ -86,11 +85,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
-  
-    if (!_locationManager) {
-        [self.locationManager startUpdatingLocation];
-        [self.spinner startAnimating];
-    }
   
   [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
 }
@@ -145,12 +139,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   [self.mapView addOverlays:overlays];
   
   self.overlays = overlays;
-}
-
-- (void)stopLocationUpdates
-{
-  [self.locationManager stopUpdatingLocation];
-  [self.spinner stopAnimating];
 }
 
 - (void)zoomToKiezFromCoordinate:(CLLocationCoordinate2D)coordinate
@@ -365,6 +353,27 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   return nil;
 }
 
+- (void)mapViewWillStartLocatingUser:(MKMapView *)mapView NS_AVAILABLE(10_9, 4_0);
+{
+    [self.spinner startAnimating];
+}
+
+- (void)mapViewDidStopLocatingUser:(MKMapView *)mapView NS_AVAILABLE(10_9, 4_0);
+{
+    [self.spinner stopAnimating];
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    CLLocation *location = [userLocation location];
+    
+    if (location.horizontalAccuracy < kDesiredLocationAccuracy)
+    {
+        [self zoomToKiezFromCoordinate:location.coordinate];
+    }
+}
+
+
 #pragma mark - UITableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -417,45 +426,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     }
 }
 
-#pragma mark Location & CLLocationManagerDelegate
-
-- (CLLocationManager *)locationManager
-{
-  if (!_locationManager)
-  {
-    if (
-        [CLLocationManager locationServicesEnabled] &&
-        (
-         [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined ||
-         [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-         )
-        )
-    {
-      _locationManager = [CLLocationManager new];
-      _locationManager.delegate = self;
-    }
-  }
-  
-  return _locationManager;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-  CLLocation *location = [locations lastObject];
-
-  if (location.horizontalAccuracy < kDesiredLocationAccuracy)
-  {
-    [self stopLocationUpdates];
-    [self zoomToKiezFromCoordinate:location.coordinate];
-  }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-  // [self stopLocationUpdates];
-  
-  DLog(@"Could not update user location");
-}
 
 #pragma mark - Venue Loadng
 
