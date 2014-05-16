@@ -26,7 +26,9 @@
 		94A46D9B192619EC00B79825 /* K2GMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A46D99192619EC00B79825 /* K2GMapViewController.xib */; };
 		94A46DA219261A0800B79825 /* K2GFoursquareVenueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A46DA019261A0800B79825 /* K2GFoursquareVenueViewController.m */; };
 		94A46DA319261A0800B79825 /* K2GFoursquareVenueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A46DA119261A0800B79825 /* K2GFoursquareVenueViewController.xib */; };
-		AAA8BBE419261CFC00DAB2A2 /* K2GFoursquareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA8BBE319261CFC00DAB2A2 /* K2GFoursquareManager.m */; };
+		AA7F290B19263471007A46E5 /* K2GFSVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F290A19263471007A46E5 /* K2GFSVenue.m */; };
+		AA7F290E192634E5007A46E5 /* K2GFSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F290D192634E5007A46E5 /* K2GFSLocation.m */; };
+		AAA8BBE81926265B00DAB2A2 /* K2GFoursquareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA8BBE71926265B00DAB2A2 /* K2GFoursquareManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +69,12 @@
 		94A46DA019261A0800B79825 /* K2GFoursquareVenueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareVenueViewController.m; sourceTree = "<group>"; };
 		94A46DA119261A0800B79825 /* K2GFoursquareVenueViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = K2GFoursquareVenueViewController.xib; sourceTree = "<group>"; };
 		94F22D0A9AB74849B4906F4A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		AAA8BBE219261CFC00DAB2A2 /* K2GFoursquareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareManager.h; sourceTree = "<group>"; };
-		AAA8BBE319261CFC00DAB2A2 /* K2GFoursquareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareManager.m; sourceTree = "<group>"; };
+		AA7F290919263471007A46E5 /* K2GFSVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFSVenue.h; sourceTree = "<group>"; };
+		AA7F290A19263471007A46E5 /* K2GFSVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFSVenue.m; sourceTree = "<group>"; };
+		AA7F290C192634E5007A46E5 /* K2GFSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFSLocation.h; sourceTree = "<group>"; };
+		AA7F290D192634E5007A46E5 /* K2GFSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFSLocation.m; sourceTree = "<group>"; };
+		AAA8BBE61926265B00DAB2A2 /* K2GFoursquareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareManager.h; sourceTree = "<group>"; };
+		AAA8BBE71926265B00DAB2A2 /* K2GFoursquareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,10 @@
 		94A46D681926165500B79825 /* Kiez ToGo */ = {
 			isa = PBXGroup;
 			children = (
+				94A46DA4192621D500B79825 /* Models */,
+				E9660EB419261BEA00158C4F /* Views */,
+				94A46D96192619DA00B79825 /* View Controllers */,
+				AAA8BBE51926261000DAB2A2 /* Foursquare */,
 				94A46D711926165500B79825 /* K2GAppDelegate.h */,
 				94A46D721926165500B79825 /* K2GAppDelegate.m */,
 				94A46D741926165500B79825 /* Images.xcassets */,
@@ -186,11 +196,22 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		AAA8BBE119261CD600DAB2A2 /* Foursquare */ = {
+		94A46DA4192621D500B79825 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AAA8BBE219261CFC00DAB2A2 /* K2GFoursquareManager.h */,
-				AAA8BBE319261CFC00DAB2A2 /* K2GFoursquareManager.m */,
+				AA7F290919263471007A46E5 /* K2GFSVenue.h */,
+				AA7F290A19263471007A46E5 /* K2GFSVenue.m */,
+				AA7F290C192634E5007A46E5 /* K2GFSLocation.h */,
+				AA7F290D192634E5007A46E5 /* K2GFSLocation.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		AAA8BBE51926261000DAB2A2 /* Foursquare */ = {
+			isa = PBXGroup;
+			children = (
+				AAA8BBE61926265B00DAB2A2 /* K2GFoursquareManager.h */,
+				AAA8BBE71926265B00DAB2A2 /* K2GFoursquareManager.m */,
 			);
 			name = Foursquare;
 			sourceTree = "<group>";
@@ -334,7 +355,11 @@
 				94A46D94192619BD00B79825 /* K2GKiezDetailViewController.m in Sources */,
 				94A46DA219261A0800B79825 /* K2GFoursquareVenueViewController.m in Sources */,
 				94A46D9A192619EC00B79825 /* K2GMapViewController.m in Sources */,
+				AAA8BBE81926265B00DAB2A2 /* K2GFoursquareManager.m in Sources */,
 				94A46D731926165500B79825 /* K2GAppDelegate.m in Sources */,
+				E9660EB719261C0B00158C4F /* K2GKiezDetailView.m in Sources */,
+				AA7F290E192634E5007A46E5 /* K2GFSLocation.m in Sources */,
+				AA7F290B19263471007A46E5 /* K2GFSVenue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

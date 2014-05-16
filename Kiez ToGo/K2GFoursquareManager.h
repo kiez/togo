@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-typedef void(^K2GFoursquareVenuesResultHandler)(BOOL success, id result);
+typedef void(^K2GFoursquareVenuesResultHandler)(NSArray *venues, NSError *error);
 
 @interface K2GFoursquareManager : NSObject
 

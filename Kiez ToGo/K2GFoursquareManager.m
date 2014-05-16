@@ -11,6 +11,8 @@
 #import <MapKit/MapKit.h>
 #import "Foursquare2.h"
 
+#import "K2GFSVenue.h"
+
 
 @implementation K2GFoursquareManager
 {
@@ -52,7 +54,21 @@
                                     radius:@(800)
                                 categoryId:nil
                                   callback:^(BOOL success, id result) {
-                                      if (handler) handler(success, result);
+                                      if (success) {
+                                          NSArray *venues = [result valueForKeyPath:@"response.venues"];
+                                          NSMutableArray *venueObjects = [NSMutableArray array];
+                                          for (NSDictionary *dict in venues) {
+                                              K2GFSVenue *venue = [[K2GFSVenue alloc] initWithFoursquareDictionary:dict];
+                                              [venueObjects addObject:venue];
+                                          }
+                                          if (handler) handler(venueObjects, nil);
+                                      } else {
+                                          if (handler) handler(nil, [NSError errorWithDomain:@"K2GFoursquareManagerErrorDomain"
+                                                                                        code:-1
+                                                                                    userInfo:@{
+                                                                                               NSLocalizedDescriptionKey: @"Could not load venues"
+                                                                                               }]);
+                                      }
                                   }];
 }
 
