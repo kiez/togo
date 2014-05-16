@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,9 +14,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUP-a1-eUY">
-                        <rect key="frame" x="10" y="16" width="24" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUP-a1-eUY">
+                        <rect key="frame" x="10" y="15" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="CUP-a1-eUY" secondAttribute="height" multiplier="1:1" id="e01-qt-Byq"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -30,12 +34,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVb-sh-Lgs">
-                                <rect key="frame" x="55" y="20" width="50" height="21"/>
+                                <rect key="frame" x="55" y="20" width="215" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dc3-5a-LLp">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dc3-5a-LLp">
                                 <rect key="frame" x="0.0" y="20" width="36" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -52,7 +56,7 @@
                             <constraint firstItem="nVb-sh-Lgs" firstAttribute="leading" secondItem="dc3-5a-LLp" secondAttribute="trailing" constant="19" id="ceu-EZ-9SU"/>
                             <constraint firstItem="dc3-5a-LLp" firstAttribute="top" secondItem="rkL-0G-ksZ" secondAttribute="bottom" constant="-1" id="jq3-d2-Efb"/>
                             <constraint firstItem="nVb-sh-Lgs" firstAttribute="baseline" secondItem="dc3-5a-LLp" secondAttribute="baseline" id="w0k-Qm-mvX"/>
-                            <constraint firstAttribute="trailing" secondItem="nVb-sh-Lgs" secondAttribute="trailing" constant="165" id="wwl-gq-Yru"/>
+                            <constraint firstAttribute="trailing" secondItem="nVb-sh-Lgs" secondAttribute="trailing" id="wwl-gq-Yru"/>
                         </constraints>
                     </view>
                 </subviews>

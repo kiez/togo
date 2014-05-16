@@ -7,12 +7,19 @@
 //
 
 #import "K2GFoursquareVenueCell.h"
+#import <Tweaks/FBTweakInline.h>
 
 @implementation K2GFoursquareVenueCell
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.gradeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
+    
+    [self.gradeLabel layoutIfNeeded];
+    
+    self.gradeLabel.layer.cornerRadius = 17;
+    self.gradeLabel.backgroundColor = [self tintColor];
+    self.gradeLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
