@@ -1,0 +1,58 @@
+PODS:
+  - AFNetworking (2.2.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.4):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.4)
+  - AFNetworking/Security (2.2.4)
+  - AFNetworking/Serialization (2.2.4)
+  - AFNetworking/UIKit (2.2.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - ErrorKit/Core (0.1.1)
+  - ErrorKit/CoreData (0.1.1):
+    - ErrorKit/Core
+  - ErrorKit/HTTP (0.1.1):
+    - ErrorKit/Core
+  - ErrorKit/UIKit (0.1.1):
+    - ErrorKit/Core
+  - Foursquare-API-v2 (1.4.5)
+  - pop (1.0.4)
+  - ReactiveCocoa (2.3):
+    - ReactiveCocoa/UI
+  - ReactiveCocoa/Core (2.3):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.3)
+  - ReactiveCocoa/UI (2.3):
+    - ReactiveCocoa/Core
+  - Tweaks (1.1.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.2.4)
+  - ErrorKit/Core
+  - ErrorKit/CoreData
+  - ErrorKit/HTTP
+  - ErrorKit/UIKit
+  - Foursquare-API-v2 (~> 1.4)
+  - pop
+  - ReactiveCocoa (~> 2.3)
+  - Tweaks
+
+SPEC CHECKSUMS:
+  AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
+  ErrorKit: 02dcbcaea24ab4b04b0a0922dd5241dfeff24605
+  Foursquare-API-v2: 60ab223d146bf2424b94006e26ffb227b9df3ab5
+  pop: 63a4f5e8942077fed2efe195036ecc572c71c48c
+  ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
+  Tweaks: 9337b5c9466d828bd6d69af3ccc124097472efad
+
+COCOAPODS: 0.32.1
