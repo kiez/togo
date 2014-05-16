@@ -271,13 +271,17 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
         [self zoomToKiezFromCoordinate:coordinate];
     } else {
-        self.state = K2GKiezDetailViewControllerStateOverview;
+        [self setState:K2GKiezDetailViewControllerStateOverview animated: YES];
     }
 }
 
 - (void)focusOnCurrentLocation:(id)sender
 {
+    self.mapView.showsUserLocation = YES;
     
+    if (self.mapView.userLocation.updating) {
+        [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+    }
 }
 
 #pragma mark MKMapViewDelegate
