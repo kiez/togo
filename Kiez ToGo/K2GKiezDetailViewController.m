@@ -167,7 +167,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self openDetailsOfVenueWithIdentifier:@"4ade123bf964a520d87221e3"];
+    K2GFSVenue *venue = _venues[indexPath.row];
+    [self openDetailsOfVenueWithIdentifier:venue.identifier];
 }
 
 - (void) openDetailsOfVenueWithIdentifier: (NSString *) venueIdentifier
