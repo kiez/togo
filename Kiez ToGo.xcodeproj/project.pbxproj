@@ -28,7 +28,6 @@
 		94A46DA319261A0800B79825 /* K2GFoursquareVenueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A46DA119261A0800B79825 /* K2GFoursquareVenueViewController.xib */; };
 		DAA5029019262464006A529B /* LOR-Bezirksregionen.kml in Resources */ = {isa = PBXBuildFile; fileRef = DAA5028F19262464006A529B /* LOR-Bezirksregionen.kml */; };
 		DAA502AB192629DF006A529B /* KMLAbstractGeometry+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50294192629DF006A529B /* KMLAbstractGeometry+MapKit.m */; };
-		DAA502AC192629DF006A529B /* KMLLineString+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50296192629DF006A529B /* KMLLineString+MapKit.m */; };
 		DAA502AD192629DF006A529B /* KMLPlacemark+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50298192629DF006A529B /* KMLPlacemark+MapKit.m */; };
 		DAA502AE192629DF006A529B /* KMLPoint+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA5029A192629DF006A529B /* KMLPoint+MapKit.m */; };
 		DAA502AF192629DF006A529B /* KMLPolygon+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA5029C192629DF006A529B /* KMLPolygon+MapKit.m */; };
@@ -42,6 +41,7 @@
 		E9660EB919261CE500158C4F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9660EB819261CE500158C4F /* MapKit.framework */; };
 		E9660EBD19261DD300158C4F /* K2GFoursquareVenueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9660EBB19261DD300158C4F /* K2GFoursquareVenueCell.m */; };
 		E9660EBE19261DD300158C4F /* K2GFoursquareVenueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9660EBC19261DD300158C4F /* K2GFoursquareVenueCell.xib */; };
+		E9FBDA2A19262ECA009FA4A8 /* NSObject+POPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FBDA2919262ECA009FA4A8 /* NSObject+POPExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +113,8 @@
 		E9660EBA19261DD300158C4F /* K2GFoursquareVenueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareVenueCell.h; sourceTree = "<group>"; };
 		E9660EBB19261DD300158C4F /* K2GFoursquareVenueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareVenueCell.m; sourceTree = "<group>"; };
 		E9660EBC19261DD300158C4F /* K2GFoursquareVenueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = K2GFoursquareVenueCell.xib; sourceTree = "<group>"; };
+		E9FBDA2819262ECA009FA4A8 /* NSObject+POPExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+POPExtensions.h"; sourceTree = "<group>"; };
+		E9FBDA2919262ECA009FA4A8 /* NSObject+POPExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+POPExtensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 		DAA5026819262416006A529B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E9FBDA2719262EC2009FA4A8 /* POP */,
 				DAA50291192629DF006A529B /* KML+MapKit */,
 				DAA5029F192629DF006A529B /* MKMap+KML */,
 			);
@@ -307,6 +310,15 @@
 				E9660EBC19261DD300158C4F /* K2GFoursquareVenueCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E9FBDA2719262EC2009FA4A8 /* POP */ = {
+			isa = PBXGroup;
+			children = (
+				E9FBDA2819262ECA009FA4A8 /* NSObject+POPExtensions.h */,
+				E9FBDA2919262ECA009FA4A8 /* NSObject+POPExtensions.m */,
+			);
+			name = POP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,7 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAA502AC192629DF006A529B /* KMLLineString+MapKit.m in Sources */,
+				E9FBDA2A19262ECA009FA4A8 /* NSObject+POPExtensions.m in Sources */,
 				94A46D6F1926165500B79825 /* main.m in Sources */,
 				DAA502AE192629DF006A529B /* KMLPoint+MapKit.m in Sources */,
 				E9660EBD19261DD300158C4F /* K2GFoursquareVenueCell.m in Sources */,
