@@ -56,7 +56,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     MKCoordinateRegion region = MKCoordinateRegionMake(berlinCenterCoordinate, span);
     [self.mapView setRegion:region];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"LOR-Bezirksregionen" withExtension:@"kml"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"LOR-Planungsraeume" withExtension:@"kml"];
     NSData *data = [NSData dataWithContentsOfURL:url];
     
     self.kml        = [KMLParser parseKMLWithData:data];
