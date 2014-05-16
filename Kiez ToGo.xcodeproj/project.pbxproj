@@ -32,6 +32,8 @@
 		94C25B9B1926484900C2255E /* K2GFSVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F29161926404F007A46E5 /* K2GFSVenue.m */; };
 		94C25B9C1926484C00C2255E /* K2GFSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F29141926404F007A46E5 /* K2GFSLocation.m */; };
 		94C25B9E1926499000C2255E /* LOR-Planungsraeume.kml in Resources */ = {isa = PBXBuildFile; fileRef = 94C25B9D1926499000C2255E /* LOR-Planungsraeume.kml */; };
+		AA7F291D19265C96007A46E5 /* K2GKiezesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F291C19265C96007A46E5 /* K2GKiezesTableViewController.m */; };
+		AA7F291F19265FEE007A46E5 /* K2GKiezTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7F291E19265FEE007A46E5 /* K2GKiezTableViewCell.xib */; };
 		DAA502AB192629DF006A529B /* KMLAbstractGeometry+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50294192629DF006A529B /* KMLAbstractGeometry+MapKit.m */; };
 		DAA502AC192629DF006A529B /* KMLLineString+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50296192629DF006A529B /* KMLLineString+MapKit.m */; };
 		DAA502AD192629DF006A529B /* KMLPlacemark+MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA50298192629DF006A529B /* KMLPlacemark+MapKit.m */; };
@@ -44,6 +46,7 @@
 		DAA502B4192629DF006A529B /* MKPolylineView+KML.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA502A8192629DF006A529B /* MKPolylineView+KML.m */; };
 		DAA502B5192629DF006A529B /* MKShape+KML.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA502AA192629DF006A529B /* MKShape+KML.m */; };
 		DAA502B819263DDF006A529B /* KMLPolygon+K2G.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA502B719263DDF006A529B /* KMLPolygon+K2G.m */; };
+		E112428B192662E600522AB8 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E112428A192662E600522AB8 /* Settings.bundle */; };
 		E9660EB719261C0B00158C4F /* K2GKiezDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9660EB619261C0B00158C4F /* K2GKiezDetailView.m */; };
 		E9660EB919261CE500158C4F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9660EB819261CE500158C4F /* MapKit.framework */; };
 		E9660EBD19261DD300158C4F /* K2GFoursquareVenueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9660EBB19261DD300158C4F /* K2GFoursquareVenueCell.m */; };
@@ -100,6 +103,9 @@
 		AA7F29141926404F007A46E5 /* K2GFSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFSLocation.m; sourceTree = "<group>"; };
 		AA7F29151926404F007A46E5 /* K2GFSVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFSVenue.h; sourceTree = "<group>"; };
 		AA7F29161926404F007A46E5 /* K2GFSVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFSVenue.m; sourceTree = "<group>"; };
+		AA7F291B19265C96007A46E5 /* K2GKiezesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GKiezesTableViewController.h; sourceTree = "<group>"; };
+		AA7F291C19265C96007A46E5 /* K2GKiezesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GKiezesTableViewController.m; sourceTree = "<group>"; };
+		AA7F291E19265FEE007A46E5 /* K2GKiezTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = K2GKiezTableViewCell.xib; sourceTree = "<group>"; };
 		DAA50292192629DF006A529B /* KML+MapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KML+MapKit.h"; sourceTree = "<group>"; };
 		DAA50293192629DF006A529B /* KMLAbstractGeometry+MapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KMLAbstractGeometry+MapKit.h"; sourceTree = "<group>"; };
 		DAA50294192629DF006A529B /* KMLAbstractGeometry+MapKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KMLAbstractGeometry+MapKit.m"; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 		DAA502AA192629DF006A529B /* MKShape+KML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKShape+KML.m"; sourceTree = "<group>"; };
 		DAA502B619263DDF006A529B /* KMLPolygon+K2G.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KMLPolygon+K2G.h"; sourceTree = "<group>"; };
 		DAA502B719263DDF006A529B /* KMLPolygon+K2G.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KMLPolygon+K2G.m"; sourceTree = "<group>"; };
+		E112428A192662E600522AB8 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		E9660EB519261C0B00158C4F /* K2GKiezDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GKiezDetailView.h; sourceTree = "<group>"; };
 		E9660EB619261C0B00158C4F /* K2GKiezDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GKiezDetailView.m; sourceTree = "<group>"; };
 		E9660EB819261CE500158C4F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -215,6 +222,7 @@
 		94A46D691926165500B79825 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E112428A192662E600522AB8 /* Settings.bundle */,
 				94A46D6A1926165500B79825 /* Kiez ToGo-Info.plist */,
 				94A46D6B1926165500B79825 /* InfoPlist.strings */,
 				94A46D6E1926165500B79825 /* main.m */,
@@ -253,6 +261,9 @@
 				94A46D9F19261A0800B79825 /* K2GFoursquareVenueViewController.h */,
 				94A46DA019261A0800B79825 /* K2GFoursquareVenueViewController.m */,
 				94A46DA119261A0800B79825 /* K2GFoursquareVenueViewController.xib */,
+				AA7F291B19265C96007A46E5 /* K2GKiezesTableViewController.h */,
+				AA7F291C19265C96007A46E5 /* K2GKiezesTableViewController.m */,
+				AA7F291E19265FEE007A46E5 /* K2GKiezTableViewCell.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -449,9 +460,11 @@
 				94C25B9E1926499000C2255E /* LOR-Planungsraeume.kml in Resources */,
 				94A46D6D1926165500B79825 /* InfoPlist.strings in Resources */,
 				E9660EBE19261DD300158C4F /* K2GFoursquareVenueCell.xib in Resources */,
+				AA7F291F19265FEE007A46E5 /* K2GKiezTableViewCell.xib in Resources */,
 				94A46D95192619BD00B79825 /* K2GKiezDetailViewController.xib in Resources */,
 				94A46D9B192619EC00B79825 /* K2GMapViewController.xib in Resources */,
 				94A46DA319261A0800B79825 /* K2GFoursquareVenueViewController.xib in Resources */,
+				E112428B192662E600522AB8 /* Settings.bundle in Resources */,
 				94A46D751926165500B79825 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +538,7 @@
 				94A46D9A192619EC00B79825 /* K2GMapViewController.m in Sources */,
 				DAA502B1192629DF006A529B /* MKAnnotationView+KML.m in Sources */,
 				94A46D731926165500B79825 /* K2GAppDelegate.m in Sources */,
+				AA7F291D19265C96007A46E5 /* K2GKiezesTableViewController.m in Sources */,
 				94C25B9B1926484900C2255E /* K2GFSVenue.m in Sources */,
 				E9660EB719261C0B00158C4F /* K2GKiezDetailView.m in Sources */,
 				DAA502B4192629DF006A529B /* MKPolylineView+KML.m in Sources */,

@@ -81,6 +81,7 @@
                                                       NSArray *groups = [result valueForKeyPath:@"response.groups"];
                                                       NSDictionary *group = [groups firstObject];
                                                       NSArray *venues = [group valueForKeyPath:@"items.venue"];
+                                                      venues = [venues sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:NO]]];
                                                       NSMutableArray *venueObjects = [NSMutableArray array];
                                                       for (NSDictionary *dict in venues) {
                                                           K2GFSVenue *venue = [[K2GFSVenue alloc] initWithFoursquareDictionary:dict];
