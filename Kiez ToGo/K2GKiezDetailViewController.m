@@ -7,8 +7,14 @@
 //
 
 #import "K2GKiezDetailViewController.h"
+#import "K2GKiezDetailView.h"
+#import "K2GFoursquareVenueCell.h"
 
-@interface K2GKiezDetailViewController ()
+static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
+
+@interface K2GKiezDetailViewController () <UITableViewDataSource>
+
+@property (nonatomic) K2GKiezDetailView *view;
 
 @end
 
@@ -26,13 +32,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.view.tableView.dataSource = self;
+    [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITableViewDataSource implementation
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    K2GFoursquareVenueCell *cell = [tableView dequeueReusableCellWithIdentifier:kFoursquareVenueCellReuseIdentifier];
+    
+    return cell;
 }
 
 @end
