@@ -9,6 +9,9 @@
 #import "K2GKiezDetailViewController.h"
 #import <iOS-KML-Framework/KML.h>
 
+#import "K2GKiezManager.h"
+#import "K2GKiez.h"
+
 #import "KML+MapKit.h"
 #import "MKMap+KML.h"
 #import "K2GKiezDetailView.h"
@@ -28,9 +31,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 @interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-@property (nonatomic, strong) KMLRoot *kml;
-@property (nonatomic) NSArray *geometries;
-@property (nonatomic) NSArray *filteredGeometries;
 @property (nonatomic) K2GKiezDetailView *view;
 
 @property (nonatomic, strong) NSArray *venues;
@@ -56,12 +56,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     MKCoordinateRegion region = MKCoordinateRegionMake(berlinCenterCoordinate, span);
     [self.mapView setRegion:region];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"LOR-Planungsraeume" withExtension:@"kml"];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    
-    self.kml        = [KMLParser parseKMLWithData:data];
-    self.geometries = self.kml.geometries;
-    
     [self reloadMapView];
 }
 
@@ -83,9 +77,9 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     NSMutableArray *annotations = [NSMutableArray new];
     NSMutableArray *overlays    = [NSMutableArray new];
     
-    [self.geometries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    [[[K2GKiezManager defaultManager] kiezes] enumerateObjectsUsingBlock:^(K2GKiez *kiez, NSUInteger idx, BOOL *stop)
      {
-         KMLAbstractGeometry *geometry = (KMLAbstractGeometry *)obj;
+         KMLAbstractGeometry *geometry = kiez.geometry;
          MKShape *mkShape = [geometry mapkitShape];
          if (mkShape) {
              if ([mkShape conformsToProtocol:@protocol(MKOverlay)]) {

@@ -21,6 +21,7 @@
 @property (readonly) NSString *area; //i.e. Britz
 @property (readonly) float sizeInHa;
 
-@property (readonly) KMLAbstractGeometry *geometry;
+@property (readonly) KMLPlacemark *placemark;
+@property (readonly) KMLAbstractGeometry *geometry; // the main geometry
 
 @end

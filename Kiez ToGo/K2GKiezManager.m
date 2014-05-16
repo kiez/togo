@@ -16,6 +16,7 @@
 
 
 @interface K2GKiezManager ()
+@property (readonly) KMLRoot *kml;
 @property (readwrite) NSArray *kiezes;
 
 @property (readwrite) NSArray *districts;
@@ -37,11 +38,8 @@
 }
 
 
-+ (NSArray *)parseKiezesFromKML
++ (NSArray *)parseKiezesFromKML:(KMLRoot *)kmlRoot
 {
-    NSString *kmlPath = [[NSBundle mainBundle] pathForResource:@"LOR-Planungsraeume" ofType:@"kml"];
-    KMLRoot *kmlRoot = [KMLParser parseKMLAtPath:kmlPath];
-    
     return [[[kmlRoot.placemarks rac_sequence] map:^K2GKiez *(KMLPlacemark *placemark) {
         return [K2GKiez kiezFromPlacemark:placemark];
     }] array];
@@ -52,7 +50,10 @@
 {
     self = [super init];
     if (self) {
-        _kiezes = [[self class] parseKiezesFromKML];
+        NSString *kmlPath = [[NSBundle mainBundle] pathForResource:@"LOR-Planungsraeume" ofType:@"kml"];
+        _kml = [KMLParser parseKMLAtPath:kmlPath];
+        
+        _kiezes = [[self class] parseKiezesFromKML:self.kml];
         
         _kiezesByDistricts = [(NSMutableDictionary *)[[self.kiezes rac_sequence] foldLeftWithStart:[NSMutableDictionary dictionary]
                                                                                             reduce:^NSMutableDictionary *(NSMutableDictionary *accumulator, K2GKiez *kiez) {

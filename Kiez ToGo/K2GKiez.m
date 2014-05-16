@@ -18,6 +18,7 @@
 @property (readwrite) NSString *area; //i.e. Britz
 @property (readwrite) float sizeInHa;
 
+@property (readwrite) KMLPlacemark *placemark;
 @property (readwrite) KMLAbstractGeometry *geometry;
 
 @end
@@ -46,7 +47,12 @@
     kiez.area = [self getValueForKey:@"BZRNAME" fromHTML:doc];
     kiez.sizeInHa = [[[self getValueForKey:@"FLAECHE_HA" fromHTML:doc] stringByReplacingOccurrencesOfString:@"," withString:@"."] floatValue];
     
+    kiez.placemark = placemark;
+    
     kiez.geometry = placemark.geometry;
+    while ([kiez.geometry isKindOfClass:[KMLMultiGeometry class]]) {
+        kiez.geometry = [[(KMLMultiGeometry *)kiez.geometry geometries] firstObject];
+    }
     
     return kiez;
 }
