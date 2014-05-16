@@ -12,6 +12,18 @@
 
 @implementation K2GKiezDetailView
 
+- (void)awakeFromNib
+{
+    UIView *borderBetweenMapAndTable = [UIView new];
+    borderBetweenMapAndTable.backgroundColor = [UIColor colorWithWhite:0.763 alpha:1.000];
+    borderBetweenMapAndTable.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview: borderBetweenMapAndTable];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_mapView][borderBetweenMapAndTable(1)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_mapView, borderBetweenMapAndTable)]];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[borderBetweenMapAndTable]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(borderBetweenMapAndTable)]];
+}
+
 - (void)showOverviewAnimated: (BOOL)animated
 {
     POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
