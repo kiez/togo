@@ -14,40 +14,20 @@
 
 - (void)showOverviewAnimated: (BOOL)animated
 {
-    POPPropertyAnimation *mapViewAnim = [self mapViewFrameAnimation];
-    CGRect currentMapViewFrame = self.mapView.frame;
-    mapViewAnim.toValue = [NSValue valueWithCGRect:CGRectMake(currentMapViewFrame.origin.x, currentMapViewFrame.origin.y, currentMapViewFrame.size.width, CGRectGetHeight(self.frame))];
-    
-    POPPropertyAnimation *tableViewAnim = [self tableViewFrameAnimation];
-    tableViewAnim.toValue = [NSValue valueWithCGRect:CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), 0)];
+    POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
+    mapViewHeightAnim.toValue = @(CGRectGetHeight(self.frame));
 }
 
 - (void)showKiezDetailsAnimated: (BOOL)animated
 {
-    POPPropertyAnimation *mapViewAnim = [self mapViewFrameAnimation];
-    
-    CGRect currentMapViewFrame = self.mapView.frame;
-    CGRect newMapViewFrame = CGRectMake(currentMapViewFrame.origin.x, currentMapViewFrame.origin.y, currentMapViewFrame.size.width, 235);
-    mapViewAnim.toValue = [NSValue valueWithCGRect:newMapViewFrame];
-    
-    POPPropertyAnimation *tableViewAnim = [self tableViewFrameAnimation];
-    tableViewAnim.toValue = [NSValue valueWithCGRect:CGRectMake(0, CGRectGetHeight(newMapViewFrame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetHeight(newMapViewFrame))];
+    POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
+    mapViewHeightAnim.toValue = @(235);
 }
 
-- (POPPropertyAnimation *) mapViewFrameAnimation
+- (POPPropertyAnimation *) mapViewHeightAnimation
 {
-    return [self frameAnimationForView:self.mapView];
-}
-
-- (POPPropertyAnimation *) tableViewFrameAnimation
-{
-    return [self frameAnimationForView: self.tableView];
-}
-
-- (POPPropertyAnimation *) frameAnimationForView: (UIView *) view;
-{
-    return (POPPropertyAnimation *)[view pop_animationForKey:@"frame" orInitializeWithBlock:^POPAnimation *{
-        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    return (POPPropertyAnimation *)[self.mapViewHeightConstraint pop_animationForKey:@"height" orInitializeWithBlock:^POPAnimation *{
+        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
         anim.springSpeed = 3;
         anim.springBounciness = 10;
         

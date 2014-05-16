@@ -16,7 +16,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.window.rootViewController = [K2GKiezDetailViewController new];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[K2GKiezDetailViewController new]];
+    self.window.rootViewController = navController;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

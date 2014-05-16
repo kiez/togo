@@ -35,6 +35,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+    
+  self.navigationItem.title = @"Mitte";
 
   self.view.tableView.dataSource = self;
   self.view.tableView.delegate = self;
@@ -78,7 +80,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 }
 
 #pragma mark UI Callbacks
-- (IBAction)titleLabelTapped:(id)sender
+- (IBAction)mapViewTapped:(id)sender
 {
     if (self.mapView.frame.size.height > 235) {
         [self.view showKiezDetailsAnimated:YES];

@@ -10,9 +10,10 @@
 
 @interface K2GKiezDetailView : UIView
 
-@property (nonatomic, weak) IBOutlet UILabel *titleLable;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *mapViewHeightConstraint;
 
 - (void)showOverviewAnimated: (BOOL)animated;
 - (void)showKiezDetailsAnimated: (BOOL)animated;
