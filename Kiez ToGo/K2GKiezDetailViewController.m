@@ -19,6 +19,11 @@
 #import "K2GFSVenue.h"
 #import "K2GFSLocation.h"
 
+typedef NS_ENUM(NSInteger, K2GKiezDetailViewControllerState) {
+    K2GKiezDetailViewControllerStateOverview,
+    K2GKiezDetailViewControllerStateDetail
+};
+
 static const CLLocationDegrees kBerlinLatitude  = 52.520078;
 static const CLLocationDegrees kBerlinLongitude = 13.405993;
 static const CLLocationDegrees kBerlinSpan = 0.35;
@@ -35,6 +40,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 @property (nonatomic, strong) NSArray *venues;
 
+@property (nonatomic) K2GKiezDetailViewControllerState state;
+
 @end
 
 @implementation K2GKiezDetailViewController
@@ -43,7 +50,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Mitte";
+    self.state = K2GKiezDetailViewControllerStateDetail;
     
     self.view.tableView.dataSource = self;
     self.view.tableView.delegate = self;
@@ -101,14 +108,45 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     [self.mapView addOverlays:overlays];
 }
 
+- (void) search: (id) sender
+{
+    
+}
+
+- (void)setState:(K2GKiezDetailViewControllerState)state
+{
+    [self setState:state animated:NO];
+}
+
+- (void)setState:(K2GKiezDetailViewControllerState)state animated: (BOOL) anim
+{
+    _state = state;
+    
+    if (_state == K2GKiezDetailViewControllerStateDetail) {
+        self.navigationItem.title = @"Mitte";
+        [self.view showKiezDetailsAnimated:anim];
+    } else {
+        self.navigationItem.title = @"Kiez To Go";
+        
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"curloc"] style:UIBarButtonItemStylePlain target:self action:@selector(focusOnCurrentLocation:)];
+        
+        self.navigationItem.rightBarButtonItem = item;
+        
+        [self.view showOverviewAnimated:anim];
+    }
+}
+
 #pragma mark UI Callbacks
 - (IBAction)mapViewTapped:(id)sender
 {
-    if (self.mapView.frame.size.height > 235) {
-        [self.view showKiezDetailsAnimated:YES];
-    } else {
-        [self.view showOverviewAnimated:YES];
+    if (self.state == K2GKiezDetailViewControllerStateDetail) {
+        [self setState:K2GKiezDetailViewControllerStateOverview animated:YES];
     }
+}
+
+- (void)focusOnCurrentLocation:(id)sender
+{
+    
 }
 
 #pragma mark MKMapViewDelegate
