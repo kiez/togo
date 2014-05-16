@@ -13,6 +13,15 @@
 #import "K2GAppDelegate.h"
 #import "K2GFoursquareManager.h"
 
+#import "K2GKiezesTableViewController.h"
+
+@interface K2GAppDelegate () <K2GKiezesTableViewControllerDelegate>
+
+@property (nonatomic, strong) UINavigationController *navigationController;
+@property (nonatomic, strong) K2GKiezDetailViewController *kiezesDetailViewCtrl;
+
+@end
+
 
 @implementation K2GAppDelegate
 
@@ -20,8 +29,16 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[K2GKiezDetailViewController new]];
+    K2GKiezDetailViewController *kiezesDetailViewCtrl = [K2GKiezDetailViewController new];
+    K2GKiezesTableViewController *kiezesTableViewCtrl = [K2GKiezesTableViewController new];
+    kiezesTableViewCtrl.delegate = self;
+    
+    UINavigationController *navController = [[UINavigationController alloc] init];
+    navController.viewControllers = @[kiezesTableViewCtrl, kiezesDetailViewCtrl];
     self.window.rootViewController = navController;
+    
+    self.kiezesDetailViewCtrl = kiezesDetailViewCtrl;
+    self.navigationController = navController;
     
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.tintColor = [UIColor colorWithRed:0.997 green:0.000 blue:0.990 alpha:1.000];
@@ -69,6 +86,15 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     return [[K2GFoursquareManager sharedInstance] handleURL:url];
+}
+
+
+#pragma mark - K2GKiezesTableViewControllerDelegate
+
+- (void)kiezesController:(K2GKiezesTableViewController *)ctrl didSelectKiez:(K2GKiez *)kiez
+{
+    [self.kiezesDetailViewCtrl zoomToKiez:kiez];
+    [self.navigationController pushViewController:self.kiezesDetailViewCtrl animated:YES];
 }
 
 @end

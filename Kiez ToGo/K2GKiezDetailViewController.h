@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "K2GKiezesTableViewController.h"
+
+@class K2GKiez;
+
+
 @interface K2GKiezDetailViewController : UIViewController
+
+- (void)zoomToKiez:(K2GKiez*)kiez;
 
 @end

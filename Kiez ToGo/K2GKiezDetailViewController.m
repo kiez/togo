@@ -84,12 +84,12 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 {
   [super viewDidAppear:animated];
   
-  [self.locationManager startUpdatingLocation];
-  [self.spinner startAnimating];
+    if (!_locationManager) {
+        [self.locationManager startUpdatingLocation];
+        [self.spinner startAnimating];
+    }
   
   [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
-  
-    [self loadVenuesAtLocation:CLLocationCoordinate2DMake(52.546430, 13.361980)];
 }
 
 - (void)reloadMapView
@@ -169,6 +169,12 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     DLog(@"coordinate not in any kiez");
     return;
   }
+    
+    [self zoomToKiez:kiez];
+}
+
+- (void)zoomToKiez:(K2GKiez*)kiez
+{
 
   KMLPolygon *polygon = (KMLPolygon *) kiez.geometry;
   
