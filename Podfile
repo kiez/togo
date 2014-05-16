@@ -12,4 +12,6 @@ pod 'ErrorKit/HTTP'
 
 pod 'Tweaks'
 pod 'pop'
+
+pod 'iOS-KML-Framework', :git => 'https://github.com/FLCLjp/iOS-KML-Framework.git'
 pod 'Reveal-iOS-SDK'

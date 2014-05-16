@@ -7,40 +7,101 @@
 //
 
 #import "K2GKiezDetailViewController.h"
+<<<<<<< HEAD
+#import <iOS-KML-Framework/KML.h>
+
+#import "KML+MapKit.h"
+#import "MKMap+KML.h"
 #import "K2GKiezDetailView.h"
 #import "K2GFoursquareVenueCell.h"
 
+static const CLLocationDegrees kBerlinLatitude  = 52.520078;
+static const CLLocationDegrees kBerlinLongitude = 13.405993;
+static const CLLocationDegrees kBerlinSpan = 0.35;
+
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
-@interface K2GKiezDetailViewController () <UITableViewDataSource>
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) KMLRoot *kml;
+@property (nonatomic) NSArray *geometries;
+@property (nonatomic) NSArray *filteredGeometries;
 @property (nonatomic) K2GKiezDetailView *view;
 
 @end
 
 @implementation K2GKiezDetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    self.view.tableView.dataSource = self;
-    [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
+  [super viewDidLoad];
+
+  self.view.tableView.dataSource = self;
+  [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
+  
+  CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
+  MKCoordinateSpan span = MKCoordinateSpanMake(kBerlinSpan, kBerlinSpan);
+  MKCoordinateRegion region = MKCoordinateRegionMake(berlinCenterCoordinate, span);
+  [self.mapView setRegion:region];
+  
+  NSURL *url = [[NSBundle mainBundle] URLForResource:@"LOR-Bezirksregionen" withExtension:@"kml"];
+  NSData *data = [NSData dataWithContentsOfURL:url];
+  
+  self.kml        = [KMLParser parseKMLWithData:data];
+  self.geometries = self.kml.geometries;
+  
+  [self reloadMapView];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)reloadMapView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  NSMutableArray *annotations = [NSMutableArray new];
+  NSMutableArray *overlays    = [NSMutableArray new];
+  
+  [self.geometries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+   {
+     KMLAbstractGeometry *geometry = (KMLAbstractGeometry *)obj;
+     MKShape *mkShape = [geometry mapkitShape];
+     if (mkShape) {
+       if ([mkShape conformsToProtocol:@protocol(MKOverlay)]) {
+         [overlays addObject:mkShape];
+       }
+       else if ([mkShape isKindOfClass:[MKPointAnnotation class]]) {
+         [annotations addObject:mkShape];
+       }
+     }
+   }];
+  
+  [self.mapView addAnnotations:annotations];
+  [self.mapView addOverlays:overlays];
+}
+
+#pragma mark MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+  if ([annotation isKindOfClass:[MKUserLocation class]]) {
+    return nil;
+  }
+  else if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
+    MKPointAnnotation *pointAnnotation = (MKPointAnnotation *)annotation;
+    return [pointAnnotation annotationViewForMapView:mapView];
+  }
+  
+  return nil;
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
+{
+  if ([overlay isKindOfClass:[MKPolyline class]]) {
+    return [(MKPolyline *)overlay overlayViewForMapView:mapView];
+  }
+  else if ([overlay isKindOfClass:[MKPolygon class]]) {
+    return [(MKPolygon *)overlay overlayViewForMapView:mapView];
+  }
+  
+  return nil;
 }
 
 #pragma mark - UITableViewDataSource implementation
