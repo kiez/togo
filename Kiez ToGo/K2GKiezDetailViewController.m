@@ -22,6 +22,7 @@
 #import "K2GFoursquareManager.h"
 #import "K2GFSVenue.h"
 #import "K2GFSLocation.h"
+#import "UIColor+K2G.h"
 
 typedef NS_ENUM(NSInteger, K2GKiezDetailViewControllerState) {
     K2GKiezDetailViewControllerStateOverview,
@@ -33,6 +34,8 @@ static const CLLocationDegrees kBerlinLongitude = 13.405993;
 static const CLLocationDegrees kBerlinSpan = 0.35;
 static const CLLocationDegrees kKiezSpan = 0.04;
 static const CLLocationAccuracy kDesiredLocationAccuracy = 100; // meters
+static const CGFloat kDisabledOverlayAlpha = 0.3;
+static const CGFloat kActiveOverlayAlpha = 0.8;
 
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
@@ -187,14 +190,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   {
     MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:self.activePolygon];
     
-    CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
-    CGFloat saturation = 0.7;
-    CGFloat brightness = 0.8;
-    CGFloat alpha = 0.5;
-    
-    renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
-    renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
-    renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+    [self configureDisabledRenderer:renderer];
   }
   
   self.activeKiez    = kiez;
@@ -204,14 +200,23 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
   MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:polygonOverlay];
   
-  CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
-  CGFloat saturation = 0.7;
-  CGFloat brightness = 0.8;
-  CGFloat alpha = 1.0;
-  
-  renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
-  renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
-  renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+  [self configureActiveRenderer:renderer];
+}
+
+- (void)configureDisabledRenderer:(MKPolygonRenderer *)renderer
+{
+  UIColor *color = [UIColor randomColor];
+  renderer.fillColor   = [color colorWithAlphaComponent:kDisabledOverlayAlpha];
+  renderer.strokeColor = color;
+  renderer.lineWidth   = 1.0 / [[UIScreen mainScreen] scale];
+}
+
+- (void)configureActiveRenderer:(MKPolygonRenderer *)renderer
+{
+  UIColor *color = [UIColor randomColor];
+  renderer.fillColor   = [color colorWithAlphaComponent:kActiveOverlayAlpha];
+  renderer.strokeColor = color;
+  renderer.lineWidth   = 1.0 / [[UIScreen mainScreen] scale];
 }
 
 - (KMLPlacemark *)placemarkForName:(NSString *)name
@@ -337,19 +342,9 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   if ([overlay isKindOfClass:[MKPolygon class]])
   {
     MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:overlay];
+    [self configureDisabledRenderer:renderer];
     
-    // TODO Stan random light color for each shape
-    CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
-    CGFloat saturation = 0.7;
-    CGFloat brightness = 0.8;
-    CGFloat alpha = 0.5;
-    
-    renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
-    
-    renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
-    renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
-    
-    return  renderer;
+    return renderer;
   }
   
   return nil;
