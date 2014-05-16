@@ -174,11 +174,11 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     return;
   }
     
-    [self zoomToKiez:kiez];
-}
-
-- (void)zoomToKiez:(K2GKiez*)kiez
-{
+//    [self zoomToKiez:kiez];
+//}
+//
+//- (void)zoomToKiez:(K2GKiez*)kiez
+//{
 
   [self setActiveKiez:kiez withPolygon:polygonOverlay];
   
