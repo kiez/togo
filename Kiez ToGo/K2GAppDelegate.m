@@ -24,6 +24,7 @@
     self.window.rootViewController = navController;
     
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.tintColor = [UIColor colorWithRed:0.997 green:0.000 blue:0.990 alpha:1.000];
     [self.window makeKeyAndVisible];
     
     [[K2GFoursquareManager sharedInstance] setupFoursquare];

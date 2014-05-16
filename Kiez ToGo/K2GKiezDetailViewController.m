@@ -23,6 +23,11 @@
 #import "K2GFSVenue.h"
 #import "K2GFSLocation.h"
 
+typedef NS_ENUM(NSInteger, K2GKiezDetailViewControllerState) {
+    K2GKiezDetailViewControllerStateOverview,
+    K2GKiezDetailViewControllerStateDetail
+};
+
 static const CLLocationDegrees kBerlinLatitude  = 52.520078;
 static const CLLocationDegrees kBerlinLongitude = 13.405993;
 static const CLLocationDegrees kBerlinSpan = 0.35;
@@ -44,33 +49,35 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 @property (nonatomic, strong) NSArray *venues;
 
+@property (nonatomic) K2GKiezDetailViewControllerState state;
+
 @end
 
 @implementation K2GKiezDetailViewController
 
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
-
-  self.navigationItem.title = @"Mitte";
-  
-  self.view.tableView.dataSource = self;
-  self.view.tableView.delegate = self;
-  self.view.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 100, 0);
-  self.view.tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
-  [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
-  
-  CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
-  MKCoordinateSpan span = MKCoordinateSpanMake(kBerlinSpan, kBerlinSpan);
-  MKCoordinateRegion region = MKCoordinateRegionMake(berlinCenterCoordinate, span);
-  [self.mapView setRegion:region];
-  
-  NSURL *url = [[NSBundle mainBundle] URLForResource:@"LOR-Bezirksregionen" withExtension:@"kml"];
-  NSData *data = [NSData dataWithContentsOfURL:url];
-  
-  self.kml = [KMLParser parseKMLWithData:data];
-  
-  [self reloadMapView];
+    [super viewDidLoad];
+    
+    self.state = K2GKiezDetailViewControllerStateDetail;
+    
+    self.view.tableView.dataSource = self;
+    self.view.tableView.delegate = self;
+    self.view.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 100, 0);
+    self.view.tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
+    [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
+    
+    CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
+    MKCoordinateSpan span = MKCoordinateSpanMake(kBerlinSpan, kBerlinSpan);
+    MKCoordinateRegion region = MKCoordinateRegionMake(berlinCenterCoordinate, span);
+    [self.mapView setRegion:region];
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"LOR-Planungsraeume" withExtension:@"kml"];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    
+    self.kml        = [KMLParser parseKMLWithData:data];
+    
+    [self reloadMapView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,11 +89,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
   [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
   
-  [[K2GFoursquareManager sharedInstance] requestVenuesAround:CLLocationCoordinate2DMake(52.546430, 13.361980)
-                                                     handler:^(NSArray *venues, NSError *error) {
-                                                         _venues = venues;
-                                                         [self.view.tableView reloadData];
-                                                     }];
+    [self loadVenuesAtLocation:CLLocationCoordinate2DMake(52.546430, 13.361980)];
 }
 
 - (void)reloadMapView
@@ -173,6 +176,10 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   MKCoordinateSpan span = MKCoordinateSpanMake(kKiezSpan, kKiezSpan);
   MKCoordinateRegion region = MKCoordinateRegionMake(kiezCenterCoordinate, span);
   [self.mapView setRegion:region animated:YES];
+    
+    self.title = kiez.name;
+    
+    [self loadVenuesAtLocation:kiezCenterCoordinate];
 }
 
 - (KMLPlacemark *)placemarkForName:(NSString *)name
@@ -221,18 +228,57 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
 }
 
+- (void) search: (id) sender
+{
+    
+}
+
+- (void)setState:(K2GKiezDetailViewControllerState)state
+{
+    [self setState:state animated:NO];
+}
+
+- (void)setState:(K2GKiezDetailViewControllerState)state animated: (BOOL) anim
+{
+    _state = state;
+    
+    if (_state == K2GKiezDetailViewControllerStateDetail) {
+        self.navigationItem.title = @"Mitte";
+        [self.view showKiezDetailsAnimated:anim];
+    } else {
+        self.navigationItem.title = @"Kiez To Go";
+        
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"curloc"] style:UIBarButtonItemStylePlain target:self action:@selector(focusOnCurrentLocation:)];
+        
+        self.navigationItem.rightBarButtonItem = item;
+        
+        [self.view showOverviewAnimated:anim];
+    }
+}
+
 #pragma mark UI Callbacks
 - (IBAction)mapViewTapped:(UITapGestureRecognizer *)sender
 {
-  if (sender.state != UIGestureRecognizerStateEnded)
-  {
-    return;
-  }
   
-  CGPoint point = [sender locationInView:sender.view];
-  CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    if (sender.state != UIGestureRecognizerStateEnded)
+    {
+        return;
+    }
   
-  [self zoomToKiezFromCoordinate:coordinate];
+    if (self.state == K2GKiezDetailViewControllerStateOverview) {
+    
+        CGPoint point = [sender locationInView:sender.view];
+        CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+  
+        [self zoomToKiezFromCoordinate:coordinate];
+    } else {
+        self.state = K2GKiezDetailViewControllerStateOverview;
+    }
+}
+
+- (void)focusOnCurrentLocation:(id)sender
+{
+    
 }
 
 #pragma mark MKMapViewDelegate
@@ -363,6 +409,20 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   // [self stopLocationUpdates];
   
   DLog(@"Could not update user location");
+}
+
+#pragma mark - Venue Loadng
+
+- (void) loadVenuesAtLocation:(CLLocationCoordinate2D)location
+{
+    _venues = @[];
+    [self.view.tableView reloadData];
+    
+    [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
+                                                       handler:^(NSArray *venues, NSError *error) {
+                                                           _venues = venues;
+                                                           [self.view.tableView reloadData];
+                                                       }];
 }
 
 @end

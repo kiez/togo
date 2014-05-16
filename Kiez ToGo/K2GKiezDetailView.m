@@ -26,14 +26,22 @@
 
 - (void)showOverviewAnimated: (BOOL)animated
 {
-    POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
-    mapViewHeightAnim.toValue = @(CGRectGetHeight(self.frame));
+    if (animated) {
+        POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
+        mapViewHeightAnim.toValue = @(CGRectGetHeight(self.frame));
+    } else {
+        self.mapViewHeightConstraint.constant = CGRectGetHeight(self.frame);
+    }
 }
 
 - (void)showKiezDetailsAnimated: (BOOL)animated
 {
-    POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
-    mapViewHeightAnim.toValue = @(235);
+    if (animated) {
+        POPPropertyAnimation *mapViewHeightAnim = [self mapViewHeightAnimation];
+        mapViewHeightAnim.toValue = @(235);
+    } else {
+        self.mapViewHeightConstraint.constant = 235;
+    }
 }
 
 - (POPPropertyAnimation *) mapViewHeightAnimation
