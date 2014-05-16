@@ -34,6 +34,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.3)
   - ReactiveCocoa/UI (2.3):
     - ReactiveCocoa/Core
+  - Reveal-iOS-SDK (1.0.4)
   - Tweaks (1.1.0)
 
 DEPENDENCIES:
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - Foursquare-API-v2 (~> 1.4)
   - pop
   - ReactiveCocoa (~> 2.3)
+  - Reveal-iOS-SDK
   - Tweaks
 
 SPEC CHECKSUMS:
@@ -53,6 +55,7 @@ SPEC CHECKSUMS:
   Foursquare-API-v2: 60ab223d146bf2424b94006e26ffb227b9df3ab5
   pop: 63a4f5e8942077fed2efe195036ecc572c71c48c
   ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
+  Reveal-iOS-SDK: 9de027a2cb0812e9ae220d9047161f3a0ac2db74
   Tweaks: 9337b5c9466d828bd6d69af3ccc124097472efad
 
 COCOAPODS: 0.32.1

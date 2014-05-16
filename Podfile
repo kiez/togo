@@ -12,3 +12,4 @@ pod 'ErrorKit/HTTP'
 
 pod 'Tweaks'
 pod 'pop'
+pod 'Reveal-iOS-SDK'
