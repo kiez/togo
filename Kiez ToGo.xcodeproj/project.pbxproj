@@ -46,6 +46,7 @@
 		DAA502B4192629DF006A529B /* MKPolylineView+KML.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA502A8192629DF006A529B /* MKPolylineView+KML.m */; };
 		DAA502B5192629DF006A529B /* MKShape+KML.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA502AA192629DF006A529B /* MKShape+KML.m */; };
 		DAA502B819263DDF006A529B /* KMLPolygon+K2G.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA502B719263DDF006A529B /* KMLPolygon+K2G.m */; };
+		DABC6FB519266709009A77F5 /* UIColor+K2G.m in Sources */ = {isa = PBXBuildFile; fileRef = DABC6FB419266709009A77F5 /* UIColor+K2G.m */; };
 		E112428B192662E600522AB8 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E112428A192662E600522AB8 /* Settings.bundle */; };
 		E9660EB719261C0B00158C4F /* K2GKiezDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9660EB619261C0B00158C4F /* K2GKiezDetailView.m */; };
 		E9660EB919261CE500158C4F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9660EB819261CE500158C4F /* MapKit.framework */; };
@@ -133,6 +134,8 @@
 		DAA502AA192629DF006A529B /* MKShape+KML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKShape+KML.m"; sourceTree = "<group>"; };
 		DAA502B619263DDF006A529B /* KMLPolygon+K2G.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KMLPolygon+K2G.h"; sourceTree = "<group>"; };
 		DAA502B719263DDF006A529B /* KMLPolygon+K2G.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KMLPolygon+K2G.m"; sourceTree = "<group>"; };
+		DABC6FB319266709009A77F5 /* UIColor+K2G.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+K2G.h"; sourceTree = "<group>"; };
+		DABC6FB419266709009A77F5 /* UIColor+K2G.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+K2G.m"; sourceTree = "<group>"; };
 		E112428A192662E600522AB8 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		E9660EB519261C0B00158C4F /* K2GKiezDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GKiezDetailView.h; sourceTree = "<group>"; };
 		E9660EB619261C0B00158C4F /* K2GKiezDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GKiezDetailView.m; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				DAA5029F192629DF006A529B /* MKMap+KML */,
 				DAA502B619263DDF006A529B /* KMLPolygon+K2G.h */,
 				DAA502B719263DDF006A529B /* KMLPolygon+K2G.m */,
+				DABC6FB319266709009A77F5 /* UIColor+K2G.h */,
+				DABC6FB419266709009A77F5 /* UIColor+K2G.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 				DAA502B1192629DF006A529B /* MKAnnotationView+KML.m in Sources */,
 				94A46D731926165500B79825 /* K2GAppDelegate.m in Sources */,
 				AA7F291D19265C96007A46E5 /* K2GKiezesTableViewController.m in Sources */,
+				DABC6FB519266709009A77F5 /* UIColor+K2G.m in Sources */,
 				94C25B9B1926484900C2255E /* K2GFSVenue.m in Sources */,
 				E9660EB719261C0B00158C4F /* K2GKiezDetailView.m in Sources */,
 				DAA502B4192629DF006A529B /* MKPolylineView+KML.m in Sources */,
