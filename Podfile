@@ -17,3 +17,8 @@ pod 'iOS-KML-Framework', :git => 'https://github.com/FLCLjp/iOS-KML-Framework.gi
 pod 'Reveal-iOS-SDK'
 
 pod 'IGHTMLQuery', '~> 0.8.1' ## HTML Parsing
+
+post_install do | installer |
+  require 'fileutils'
+  FileUtils.cp_r('Pods/Pods-Acknowledgements.plist', 'Settings.bundle/Acknowledgements.plist', :remove_destination => true)
+end
