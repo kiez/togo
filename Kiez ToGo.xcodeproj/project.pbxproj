@@ -96,6 +96,7 @@
 		94A46DB519262B2200B79825 /* K2GKiezManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GKiezManager.h; sourceTree = "<group>"; };
 		94A46DB619262B2200B79825 /* K2GKiezManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GKiezManager.m; sourceTree = "<group>"; };
 		94C25B9D1926499000C2255E /* LOR-Planungsraeume.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "LOR-Planungsraeume.kml"; sourceTree = "<group>"; };
+		94C25B9F19265FCB00C2255E /* Berlin.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Berlin.gpx; sourceTree = "<group>"; };
 		94F22D0A9AB74849B4906F4A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AA7F291019264041007A46E5 /* K2GFoursquareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K2GFoursquareManager.h; sourceTree = "<group>"; };
 		AA7F291119264041007A46E5 /* K2GFoursquareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K2GFoursquareManager.m; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 				94A46D6B1926165500B79825 /* InfoPlist.strings */,
 				94A46D6E1926165500B79825 /* main.m */,
 				94A46D701926165500B79825 /* Kiez ToGo-Prefix.pch */,
+				94C25B9F19265FCB00C2255E /* Berlin.gpx */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
