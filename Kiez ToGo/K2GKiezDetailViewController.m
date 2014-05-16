@@ -39,7 +39,7 @@ static const CGFloat kActiveOverlayAlpha = 0.8;
 
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
-@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) KMLRoot *kml;
@@ -70,8 +70,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     
     self.navigationItem.rightBarButtonItem = item;
     
-    self.state = K2GKiezDetailViewControllerStateDetail;
-    
     self.view.tableView.dataSource = self;
     self.view.tableView.delegate = self;
     self.view.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 100, 0);
@@ -89,6 +87,13 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     self.kml        = [KMLParser parseKMLWithData:data];
     
     [self reloadMapView];
+    
+    self.state = K2GKiezDetailViewControllerStateDetail;
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnMap:)];
+    pan.delegate = self;
+    [self.mapView addGestureRecognizer: pan];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -283,6 +288,10 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 - (void)setState:(K2GKiezDetailViewControllerState)state animated: (BOOL) anim
 {
+    if (_state == state) {
+        return;
+    }
+    
     _state = state;
     
     if (_state == K2GKiezDetailViewControllerStateDetail) {
@@ -304,19 +313,20 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
         return;
     }
   
-    if (self.state == K2GKiezDetailViewControllerStateOverview) {
-    
-        CGPoint point = [sender locationInView:sender.view];
-        CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-  
-        [self zoomToKiezFromCoordinate:coordinate];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self setState:K2GKiezDetailViewControllerStateDetail animated:YES];
-        });
-        
-    } else {
-        [self setState:K2GKiezDetailViewControllerStateOverview animated: YES];
-    }
+
+    CGPoint point = [sender locationInView:sender.view];
+    CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+
+    [self zoomToKiezFromCoordinate:coordinate];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setState:K2GKiezDetailViewControllerStateDetail animated:YES];
+    });
+
+}
+
+- (void) panOnMap: (id) recog
+{
+    [self setState:K2GKiezDetailViewControllerStateOverview animated:YES];
 }
 
 - (void)focusOnCurrentLocation:(id)sender
@@ -376,7 +386,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
         [self zoomToKiezFromCoordinate:location.coordinate];
     }
 }
-
 
 #pragma mark - UITableViewDataSource implementation
 
@@ -457,6 +466,11 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
                                                                             }];
                      }];
     
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 @end
