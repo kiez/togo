@@ -22,12 +22,16 @@
                         <outlet property="delegate" destination="-1" id="JsH-9o-oFM"/>
                     </connections>
                 </mapView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-gi-mTg">
+                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-gi-mTg">
                     <rect key="frame" x="0.0" y="28" width="320" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <gestureRecognizers/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="jWl-P2-uqX" appends="YES" id="tiD-Al-gPX"/>
+                    </connections>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ivs-co-As1">
                     <rect key="frame" x="0.0" y="300" width="320" height="268"/>
@@ -44,5 +48,10 @@
                 <outlet property="titleLable" destination="xC1-gi-mTg" id="i40-zr-b9z"/>
             </connections>
         </view>
+        <tapGestureRecognizer id="jWl-P2-uqX">
+            <connections>
+                <action selector="titleLabelTapped:" destination="-1" id="kOE-6O-vIO"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

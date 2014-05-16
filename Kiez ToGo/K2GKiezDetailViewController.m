@@ -20,7 +20,7 @@ static const CLLocationDegrees kBerlinSpan = 0.35;
 
 static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenueCellReuseIdentifier";
 
-@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource>
+@interface K2GKiezDetailViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) KMLRoot *kml;
@@ -37,6 +37,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   [super viewDidLoad];
 
   self.view.tableView.dataSource = self;
+  self.view.tableView.delegate = self;
   [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
   
   CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
@@ -74,6 +75,16 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
   [self.mapView addAnnotations:annotations];
   [self.mapView addOverlays:overlays];
+}
+
+#pragma mark UI Callbacks
+- (IBAction)titleLabelTapped:(id)sender
+{
+    if (self.mapView.frame.size.height > 235) {
+        [self.view showKiezDetailsAnimated:YES];
+    } else {
+        [self.view showOverviewAnimated:YES];
+    }
 }
 
 #pragma mark MKMapViewDelegate
@@ -120,6 +131,11 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     K2GFoursquareVenueCell *cell = [tableView dequeueReusableCellWithIdentifier:kFoursquareVenueCellReuseIdentifier];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
 }
 
 @end

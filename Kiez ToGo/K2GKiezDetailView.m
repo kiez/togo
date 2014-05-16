@@ -7,25 +7,54 @@
 //
 
 #import "K2GKiezDetailView.h"
+#import <pop/POP.h>
+#import "NSObject+POPExtensions.h"
 
 @implementation K2GKiezDetailView
 
-- (id)initWithFrame:(CGRect)frame
+- (void)showOverviewAnimated: (BOOL)animated
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    POPPropertyAnimation *mapViewAnim = [self mapViewFrameAnimation];
+    CGRect currentMapViewFrame = self.mapView.frame;
+    mapViewAnim.toValue = [NSValue valueWithCGRect:CGRectMake(currentMapViewFrame.origin.x, currentMapViewFrame.origin.y, currentMapViewFrame.size.width, CGRectGetHeight(self.frame))];
+    
+    POPPropertyAnimation *tableViewAnim = [self tableViewFrameAnimation];
+    tableViewAnim.toValue = [NSValue valueWithCGRect:CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), 0)];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)showKiezDetailsAnimated: (BOOL)animated
 {
-    // Drawing code
+    POPPropertyAnimation *mapViewAnim = [self mapViewFrameAnimation];
+    
+    CGRect currentMapViewFrame = self.mapView.frame;
+    CGRect newMapViewFrame = CGRectMake(currentMapViewFrame.origin.x, currentMapViewFrame.origin.y, currentMapViewFrame.size.width, 235);
+    mapViewAnim.toValue = [NSValue valueWithCGRect:newMapViewFrame];
+    
+    POPPropertyAnimation *tableViewAnim = [self tableViewFrameAnimation];
+    tableViewAnim.toValue = [NSValue valueWithCGRect:CGRectMake(0, CGRectGetHeight(newMapViewFrame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetHeight(newMapViewFrame))];
 }
-*/
+
+- (POPPropertyAnimation *) mapViewFrameAnimation
+{
+    return [self frameAnimationForView:self.mapView];
+}
+
+- (POPPropertyAnimation *) tableViewFrameAnimation
+{
+    return [self frameAnimationForView: self.tableView];
+}
+
+- (POPPropertyAnimation *) frameAnimationForView: (UIView *) view;
+{
+    return (POPPropertyAnimation *)[view pop_animationForKey:@"frame" orInitializeWithBlock:^POPAnimation *{
+        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+        anim.springSpeed = 3;
+        anim.springBounciness = 10;
+        
+        return anim;
+    }];
+}
+
+
 
 @end

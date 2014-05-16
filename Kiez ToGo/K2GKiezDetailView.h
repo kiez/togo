@@ -14,4 +14,7 @@
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
+- (void)showOverviewAnimated: (BOOL)animated;
+- (void)showKiezDetailsAnimated: (BOOL)animated;
+
 @end
