@@ -295,7 +295,6 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     _state = state;
     
     if (_state == K2GKiezDetailViewControllerStateDetail) {
-        self.navigationItem.title = @"Mitte";
         [self.view showKiezDetailsAnimated:anim];
     } else {
         self.navigationItem.title = @"Kiez To Go";
