@@ -57,11 +57,16 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   [self reloadMapView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
+}
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)reloadMapView
