@@ -51,6 +51,9 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 @property (nonatomic) K2GKiezDetailViewControllerState state;
 
+@property (nonatomic, strong) K2GKiez *activeKiez;
+@property (nonatomic, strong) MKPolygon *activePolygon;
+
 @end
 
 @implementation K2GKiezDetailViewController
@@ -153,10 +156,11 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 - (void)zoomToKiezFromCoordinate:(CLLocationCoordinate2D)coordinate
 {
   K2GKiez *kiez = nil;
+  MKPolygon *polygonOverlay = nil;
   for (NSUInteger i = 0; i < [self.overlays count]; ++i)
   {
-    MKPolygon *polygon = self.overlays[i];
-    if ([self polygon:polygon contains:coordinate])
+    polygonOverlay = self.overlays[i];
+    if ([self polygon:polygonOverlay contains:coordinate])
     {
       NSNumber *index = @(i);
       kiez = self.mapFromOverlayIndexToKiez[index];
@@ -170,6 +174,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     return;
   }
 
+  [self setActiveKiez:kiez withPolygon:polygonOverlay];
+  
   KMLPolygon *polygon = (KMLPolygon *) kiez.geometry;
   
   CLLocationCoordinate2D kiezCenterCoordinate = [polygon centerCoordinate];
@@ -180,6 +186,40 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     self.title = kiez.name;
     
     [self loadVenuesAtLocation:kiezCenterCoordinate];
+}
+
+- (void)setActiveKiez:(K2GKiez *)kiez withPolygon:(MKPolygon *)polygonOverlay
+{
+  // deselect the old polygon
+  if (self.activePolygon)
+  {
+    MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:self.activePolygon];
+    
+    CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
+    CGFloat saturation = 0.7;
+    CGFloat brightness = 0.8;
+    CGFloat alpha = 0.5;
+    
+    renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+    renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+    renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+  }
+  
+  self.activeKiez    = kiez;
+  self.activePolygon = polygonOverlay;
+  
+  // select the new polygon
+  
+  MKPolygonRenderer *renderer = (MKPolygonRenderer *) [self.mapView rendererForOverlay:polygonOverlay];
+  
+  CGFloat hue = (float)arc4random_uniform(1000)/1000.0;
+  CGFloat saturation = 0.7;
+  CGFloat brightness = 0.8;
+  CGFloat alpha = 1.0;
+  
+  renderer.fillColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+  renderer.strokeColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+  renderer.lineWidth = 1.0 / [[UIScreen mainScreen] scale];
 }
 
 - (KMLPlacemark *)placemarkForName:(NSString *)name
