@@ -13,6 +13,7 @@
 #import "MKMap+KML.h"
 #import "K2GKiezDetailView.h"
 #import "K2GFoursquareVenueCell.h"
+#import "K2GFoursquareVenueViewController.h"
 
 static const CLLocationDegrees kBerlinLatitude  = 52.520078;
 static const CLLocationDegrees kBerlinLongitude = 13.405993;
@@ -54,6 +55,13 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   self.geometries = self.kml.geometries;
   
   [self reloadMapView];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)reloadMapView
@@ -138,6 +146,12 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    K2GFoursquareVenueViewController *venueDetailVC = [K2GFoursquareVenueViewController new];
+    [self.navigationController pushViewController:venueDetailVC animated:YES];
 }
 
 @end
