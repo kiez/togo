@@ -7,7 +7,6 @@
 //
 
 #import "K2GKiezDetailViewController.h"
-<<<<<<< HEAD
 #import <iOS-KML-Framework/KML.h>
 
 #import "KML+MapKit.h"
