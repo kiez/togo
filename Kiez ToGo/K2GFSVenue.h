@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) NSDictionary *contact;
 @property (nonatomic, strong) K2GFSLocation *location;
+@property (nonatomic, assign) float rating;
 
 @property (nonatomic, copy) NSString *primaryCategoryName;
 

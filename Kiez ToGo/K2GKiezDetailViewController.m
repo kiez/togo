@@ -152,7 +152,11 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     K2GFoursquareVenueCell *cell = [tableView dequeueReusableCellWithIdentifier:kFoursquareVenueCellReuseIdentifier];
     
     K2GFSVenue *venue = _venues[indexPath.row];
-    cell.gradeLabel.text = @"00";
+    if (venue.rating == MAXFLOAT) {
+        cell.gradeLabel.text = @"--";
+    } else {
+        cell.gradeLabel.text = [NSString stringWithFormat:@"%1.1f", venue.rating];
+    }
     cell.titleLabel.text = venue.name;
     cell.titleType.text = venue.primaryCategoryName;
     cell.addressLabel.text = venue.location.address;

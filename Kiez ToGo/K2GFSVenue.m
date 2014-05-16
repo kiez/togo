@@ -20,6 +20,7 @@
     self.name = dict[@"name"];
     self.contact = dict[@"contact"];
     self.location = [[K2GFSLocation alloc] initWithFoursquareDictionary:dict[@"location"]];
+    self.rating = dict[@"rating"] ? [dict[@"rating"] floatValue] : MAXFLOAT;
     
     NSArray *categories = dict[@"categories"];
     NSArray *primaryCategories = [categories filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"primary == 1"]];

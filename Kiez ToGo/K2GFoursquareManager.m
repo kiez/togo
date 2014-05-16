@@ -48,28 +48,54 @@
 
 - (void) requestVenuesAround:(CLLocationCoordinate2D)coordinate handler:(K2GFoursquareVenuesResultHandler)handler;
 {
-    [Foursquare2 venueSearchNearByLatitude:@(coordinate.latitude) longitude:@(coordinate.longitude)
-                                     query:nil limit:nil
-                                    intent:intentBrowse
-                                    radius:@(800)
-                                categoryId:nil
-                                  callback:^(BOOL success, id result) {
-                                      if (success) {
-                                          NSArray *venues = [result valueForKeyPath:@"response.venues"];
-                                          NSMutableArray *venueObjects = [NSMutableArray array];
-                                          for (NSDictionary *dict in venues) {
-                                              K2GFSVenue *venue = [[K2GFSVenue alloc] initWithFoursquareDictionary:dict];
-                                              [venueObjects addObject:venue];
-                                          }
-                                          if (handler) handler(venueObjects, nil);
-                                      } else {
-                                          if (handler) handler(nil, [NSError errorWithDomain:@"K2GFoursquareManagerErrorDomain"
-                                                                                        code:-1
-                                                                                    userInfo:@{
-                                                                                               NSLocalizedDescriptionKey: @"Could not load venues"
-                                                                                               }]);
-                                      }
-                                  }];
+//    [Foursquare2 venueSearchNearByLatitude:@(coordinate.latitude) longitude:@(coordinate.longitude)
+//                                     query:nil limit:nil
+//                                    intent:intentBrowse
+//                                    radius:@(800)
+//                                categoryId:nil
+//                                  callback:^(BOOL success, id result) {
+//                                      if (success) {
+//                                          NSArray *venues = [result valueForKeyPath:@"response.venues"];
+//                                          NSMutableArray *venueObjects = [NSMutableArray array];
+//                                          for (NSDictionary *dict in venues) {
+//                                              K2GFSVenue *venue = [[K2GFSVenue alloc] initWithFoursquareDictionary:dict];
+//                                              [venueObjects addObject:venue];
+//                                          }
+//                                          if (handler) handler(venueObjects, nil);
+//                                      } else {
+//                                          if (handler) handler(nil, [NSError errorWithDomain:@"K2GFoursquareManagerErrorDomain"
+//                                                                                        code:-1
+//                                                                                    userInfo:@{
+//                                                                                               NSLocalizedDescriptionKey: @"Could not load venues"
+//                                                                                               }]);
+//                                      }
+//                                  }];
+    [Foursquare2 venueExploreRecommendedNearByLatitude:@(coordinate.latitude) longitude:@(coordinate.longitude)
+                                                  near:nil accuracyLL:@(800)
+                                              altitude:nil accuracyAlt:nil
+                                                 query:nil limit:nil offset:nil
+                                                radius:nil section:nil novelty:nil sortByDistance:YES
+                                               openNow:YES venuePhotos:YES price:nil
+                                              callback:^(BOOL success, id result) {
+                                                  if (success) {
+                                                      NSArray *groups = [result valueForKeyPath:@"response.groups"];
+                                                      NSDictionary *group = [groups firstObject];
+                                                      NSArray *venues = [group valueForKeyPath:@"items.venue"];
+                                                      NSMutableArray *venueObjects = [NSMutableArray array];
+                                                      for (NSDictionary *dict in venues) {
+                                                          K2GFSVenue *venue = [[K2GFSVenue alloc] initWithFoursquareDictionary:dict];
+                                                          [venueObjects addObject:venue];
+                                                      }
+                                                      if (handler) handler(venueObjects, nil);
+                                                  } else {
+                                                      if (handler) handler(nil, [NSError errorWithDomain:@"K2GFoursquareManagerErrorDomain"
+                                                                                                    code:-1
+                                                                                                userInfo:@{
+                                                                                                           NSLocalizedDescriptionKey: @"Could not load venues"
+                                                                                                           }]);
+                                                  }
+                                              }];
+
 }
 
 - (BOOL) handleURL:(NSURL*)url
