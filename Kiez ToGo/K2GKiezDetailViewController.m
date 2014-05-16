@@ -89,11 +89,7 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   
   [self.view.tableView deselectRowAtIndexPath:[self.view.tableView indexPathForSelectedRow] animated:YES];
   
-  [[K2GFoursquareManager sharedInstance] requestVenuesAround:CLLocationCoordinate2DMake(52.546430, 13.361980)
-                                                     handler:^(NSArray *venues, NSError *error) {
-                                                         _venues = venues;
-                                                         [self.view.tableView reloadData];
-                                                     }];
+    [self loadVenuesAtLocation:CLLocationCoordinate2DMake(52.546430, 13.361980)];
 }
 
 - (void)reloadMapView
@@ -180,6 +176,10 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   MKCoordinateSpan span = MKCoordinateSpanMake(kKiezSpan, kKiezSpan);
   MKCoordinateRegion region = MKCoordinateRegionMake(kiezCenterCoordinate, span);
   [self.mapView setRegion:region animated:YES];
+    
+    self.title = kiez.name;
+    
+    [self loadVenuesAtLocation:kiezCenterCoordinate];
 }
 
 - (KMLPlacemark *)placemarkForName:(NSString *)name
@@ -397,6 +397,20 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
   // [self stopLocationUpdates];
   
   DLog(@"Could not update user location");
+}
+
+#pragma mark - Venue Loadng
+
+- (void) loadVenuesAtLocation:(CLLocationCoordinate2D)location
+{
+    _venues = @[];
+    [self.view.tableView reloadData];
+    
+    [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
+                                                       handler:^(NSArray *venues, NSError *error) {
+                                                           _venues = venues;
+                                                           [self.view.tableView reloadData];
+                                                       }];
 }
 
 @end
