@@ -47,6 +47,8 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
     
     self.view.tableView.dataSource = self;
     self.view.tableView.delegate = self;
+    self.view.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 100, 0);
+    self.view.tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
     [self.view.tableView registerNib:[UINib nibWithNibName:@"K2GFoursquareVenueCell" bundle:nil] forCellReuseIdentifier:kFoursquareVenueCellReuseIdentifier];
     
     CLLocationCoordinate2D berlinCenterCoordinate = CLLocationCoordinate2DMake(kBerlinLatitude, kBerlinLongitude);
