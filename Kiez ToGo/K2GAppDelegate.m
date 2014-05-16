@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 kiez e.V. GmbH (i.G.). All rights reserved.
 //
 
+#import "K2GKiezDetailViewController.h"
+
 #import "K2GAppDelegate.h"
 
 @implementation K2GAppDelegate
@@ -13,7 +15,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    self.window.rootViewController = [[K2GKiezDetailViewController alloc] initWithNibName:nil bundle:nil];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
