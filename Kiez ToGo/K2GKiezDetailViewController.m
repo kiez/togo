@@ -415,14 +415,28 @@ static NSString * const kFoursquareVenueCellReuseIdentifier = @"kFoursquareVenue
 
 - (void) loadVenuesAtLocation:(CLLocationCoordinate2D)location
 {
-    _venues = @[];
-    [self.view.tableView reloadData];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.view.tableView.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         _venues = @[];
+                         [self.view.tableView reloadData];
+                         
+                         [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
+                                                                            handler:^(NSArray *venues, NSError *error) {
+                                                                                _venues = venues;
+                                                                                [self.view.tableView reloadData];
+                                                                                
+                                                                                [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn
+                                                                                                 animations:^{
+                                                                                                     self.view.tableView.alpha = 1.0;
+                                                                                                 }
+                                                                                                 completion:NULL];
+
+                                                                            }];
+                     }];
     
-    [[K2GFoursquareManager sharedInstance] requestVenuesAround:location
-                                                       handler:^(NSArray *venues, NSError *error) {
-                                                           _venues = venues;
-                                                           [self.view.tableView reloadData];
-                                                       }];
 }
 
 @end
