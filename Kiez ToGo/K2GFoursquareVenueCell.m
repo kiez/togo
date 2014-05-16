@@ -16,7 +16,7 @@
     [self.gradeLabel layoutIfNeeded];
     
     self.gradeLabel.layer.cornerRadius = 20;
-    self.gradeLabel.backgroundColor = [self tintColor];
+    self.gradeLabel.backgroundColor = [UIColor colorWithRed:0.997 green:0.000 blue:0.990 alpha:1.000];
     self.gradeLabel.textColor = [UIColor whiteColor];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
