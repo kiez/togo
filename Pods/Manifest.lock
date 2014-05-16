@@ -25,6 +25,7 @@ PODS:
     - ErrorKit/Core
   - ErrorKit/UIKit (0.1.1):
     - ErrorKit/Core
+  - Foursquare-API-v2 (1.4.5)
   - ReactiveCocoa (2.3):
     - ReactiveCocoa/UI
   - ReactiveCocoa/Core (2.3):
@@ -39,11 +40,13 @@ DEPENDENCIES:
   - ErrorKit/CoreData
   - ErrorKit/HTTP
   - ErrorKit/UIKit
+  - Foursquare-API-v2 (~> 1.4)
   - ReactiveCocoa (~> 2.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
   ErrorKit: 02dcbcaea24ab4b04b0a0922dd5241dfeff24605
+  Foursquare-API-v2: 60ab223d146bf2424b94006e26ffb227b9df3ab5
   ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
 
 COCOAPODS: 0.32.1
